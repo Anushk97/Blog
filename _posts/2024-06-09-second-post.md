@@ -1,13 +1,14 @@
 ---
 layout: post
-title:  "Real-time object detection and hand tracking with Mediapipe"
+title:  "Real-time hand tracking with Mediapipe and CV2"
 date:   2024-06-09 12:54:15 +0800
 categories: jekyll update
 ---
 
-In this project, I aim to build 2 things - first is a handtracking app and the second is a object detection app with LLM integration and audio. The reason for doing these projects is to explore computer vision libraries like Mediapipe which provides real-time hand tracking capabilities and gestures. They have trained the model on different hand gestures and it can pick up different points on the fingers. I want to add a draw feature which lets you draw real time in the video, seems like it would be a good use case for video conferencing apps like zoom or google meet. 
+In this project, I aim to build a handtracking app. The reason for doing these projects is to explore computer vision libraries like Mediapipe which provides real-time hand tracking capabilities and gestures and CV2 which will help in drawing styles on the image. 
 
-Second, the object detection app can be a good use case for visually impaired people because it will help them understand what is around them and ideally should be able to speak out all the objects around them. 
+They have trained the model on different hand gestures and it can pick up different points on the fingers. I want to add a draw feature which lets you draw real time in the video, seems like it would be a good use case for video conferencing apps like zoom or google meet. 
+
 
 ## Approach
 ### Handtracking app
