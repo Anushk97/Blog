@@ -81,7 +81,7 @@ class GPTConfig:
 #### 👉 GPT Class
 
 This class will consist of Word Token Embeddings (wte), Word Positional Embeddings (wpe), Transformer blocks (h) and Layer Normalization (ln_f).
-- wte: Embedding layer that converts each token in the vocabulary to a n_embd-dimensional embedding vector.
+- wte: Embedding layer that converts each token in the vocabulary to a n_embd-dimensional embedding vector. Word embeddings can be better understood with [tiktokenizer](https://tiktokenizer.vercel.app/)
 - wpe: Embedding layer that assigns a unique n_embd-dimensional vector to each position in the input sequence.
 - h: List of transformer blocks, where each block contains layers for self-attention and feed-forward neural networks.
 - ln_f: Applies layer normalization to the final hidden states of the transformer to stabilize and accelerate training.
@@ -165,7 +165,8 @@ class MLP(nn.Module):
 ---
 #### 👉 Self Attention Operation
 
-The attention operation allows the model to weigh the importance of each token in a sequence and capture dependencies in a sentence. It has a linear attention layer, a projection layer and a buffer.
+The attention operation allows the model to weigh the importance of each token in a sequence and capture dependencies in a sentence. It has a linear attention layer, a projection layer and a buffer. This [article](https://slds-lmu.github.io/seminar_nlp_ss20/attention-and-self-attention-for-nlp.html) explains this concept.
+
 - self.c_attn: A linear layer that projects the input embeddings to three separate sets of embeddings for queries (Q), keys (K), and values (V). This projection increases the dimensionality by 3 times (3 * config.n_embd).
 - self.c_proj: A linear layer that projects the concatenated output of all attention heads back to the original embedding dimensionality (config.n_embd).
 - self.register_buffer("bias", ...): A lower triangular matrix used as a causal mask to prevent attending to future tokens. 
@@ -178,7 +179,6 @@ The attention operation allows the model to weigh the importance of each token i
 - Scaled Dot-Product Attention: Applies scaled dot-product attention with the causal mask (is_causal=True), ensuring that each token only attends to previous tokens and itself.
 - Reshape Back: Transposes and reshapes the output of the attention heads back to [B, T, C].
 - Output Projection: The output of the attention layer is projected back to the original embedding dimensionality using self.c_proj.
-
 
 
 ```
@@ -245,6 +245,8 @@ class GPT(nn.Module):
         # init params
         self.apply(self._init_weights)
 ```
+#### ---------------------------------------------------------
+
 🔥 **Weights initialization method**:  Initializes with random weights.
 - nn.Linear: Linear layers are initialized with a normal distribution with a mean of 0 and a standard deviation of 0.02 (scaled for some layers).
 - nn.Embedding: Embedding layers are initialized with a normal distribution with a mean of 0 and a standard deviation of 0.02. 
@@ -258,9 +260,16 @@ class GPT(nn.Module):
             torch.nn.init.normal_(module.weight, mean=0.0, std=std)
             if module.bias is not None:
                 torch.nn.init.zeros_(module.bias)
+        
         elif isinstance(module, nn.Embedding):
             torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
 ```
+**From the docs...**
+- [torch.nn.init.normal](https://pytorch.org/cppdocs/api/function_namespacetorch_1_1nn_1_1init_1a105c2a8ef81c6faa82a01cf35ce9f3b1.html): Fills the given 2-dimensional matrix with values drawn from a normal distribution parameterized by mean and std
+- [torch.nn.init.zeroes](https://pytorch.org/cppdocs/api/function_namespacetorch_1_1nn_1_1init_1af7e7736ba2d050adc0523d84285564e8.html): Fills the given tensor with zeros.
+
+#### ---------------------------------------------------------
+
 🔥 **Forward menthod**: Make a forward pass through the transformer architecture and calculate loss.
 - Input: idx is a tensor of shape [B, T] where B is the batch size and T is the sequence length.
 - Position Embeddings: pos_emb is computed for positions.
@@ -273,26 +282,41 @@ class GPT(nn.Module):
 
 ```
     def forward(self, idx, targets=None):
+        
         # idx is of shape (B, T)
         B, T = idx.size()
         assert T <= self.config.block_size, f"Cannot forward sequence of length {T}, block size is only {self.config.block_size}"
-        # forward the token and posisition embeddings
+        
+        # forward the token and position embeddings
         pos = torch.arange(0, T, dtype=torch.long, device=idx.device) # shape (T)
+        
         pos_emb = self.transformer.wpe(pos) # position embeddings of shape (T, n_embd)
         tok_emb = self.transformer.wte(idx) # token embeddings of shape (B, T, n_embd)
+        
         x = tok_emb + pos_emb
+        
         # forward the blocks of the transformer
         for block in self.transformer.h:
             x = block(x)
+        
         # forward the final layernorm and the classifier
         x = self.transformer.ln_f(x)
         logits = self.lm_head(x) # (B, T, vocab_size)
         loss = None
+        
         if targets is not None:
             loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1))
+        
         return logits, loss
 
 ```
+**From the docs...**
+- [torch.arange](https://pytorch.org/docs/stable/generated/torch.arange.html): Returns a 1-D tensor of size 
+⌈(end−start)/step⌉ with values from the interval [start, end) taken with common difference step beginning from start.
+- [F.cross_entropy](https://pytorch.org/docs/stable/generated/torch.nn.functional.cross_entropy.html): Compute the cross entropy loss between input logits and target.
+
+#### ---------------------------------------------------------
+
 🔥 **Load from pretrained method**: Class method to load pre-trained weights from Hugging Face's GPT-2 models.
 - Model Configuration: Sets the number of layers, heads, and embedding dimensions based on the model type.
 - Initialize Model: Creates a new GPT model with the specified configuration.
@@ -303,7 +327,9 @@ class GPT(nn.Module):
     @classmethod
         def from_pretrained(cls, model_type):
             """Loads pretrained GPT-2 model weights from huggingface"""
+
             assert model_type in {'gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl'}
+            
             from transformers import GPT2LMHeadModel
             print("loading weights from pretrained gpt: %s" % model_type)
 
@@ -314,8 +340,10 @@ class GPT(nn.Module):
                 'gpt2-large':   dict(n_layer=36, n_head=20, n_embd=1280), # 774M params
                 'gpt2-xl':      dict(n_layer=48, n_head=25, n_embd=1600), # 1558M params
             }[model_type]
+
             config_args['vocab_size'] = 50257 # always 50257 for GPT model checkpoints
             config_args['block_size'] = 1024 # always 1024 for GPT model checkpoints
+            
             # create a from-scratch initialized minGPT model
             config = GPTConfig(**config_args)
             model = GPT(config)
@@ -332,8 +360,10 @@ class GPT(nn.Module):
             sd_keys_hf = [k for k in sd_keys_hf if not k.endswith('.attn.masked_bias')] # ignore these, just a buffer
             sd_keys_hf = [k for k in sd_keys_hf if not k.endswith('.attn.bias')] # same, just the mask (buffer)
             transposed = ['attn.c_attn.weight', 'attn.c_proj.weight', 'mlp.c_fc.weight', 'mlp.c_proj.weight']
+            
             # basically the openai checkpoints use a "Conv1D" module, but we only want to use a vanilla Linear
             # this means that we have to transpose these weights when we import them
+            
             assert len(sd_keys_hf) == len(sd_keys), f"mismatched keys: {len(sd_keys_hf)} != {len(sd_keys)}"
             for k in sd_keys_hf:
                 if any(k.endswith(w) for w in transposed):
@@ -349,6 +379,7 @@ class GPT(nn.Module):
 
             return model
 ```
+#### ---------------------------------------------------------
 
 
 🔥 **Config optimizer method**: Configures the optimizer for training.
@@ -358,11 +389,15 @@ class GPT(nn.Module):
 
 ```
     def configure_optimizers(self, weight_decay, learning_rate, device):
+            
             # start with all of the candidate parameters (that require grad)
+            
             param_dict = {pn: p for pn, p in self.named_parameters()}
             param_dict = {pn: p for pn, p in param_dict.items() if p.requires_grad}
+            
             # create optim groups. Any parameters that is 2D will be weight decayed, otherwise no.
             # i.e. all weight tensors in matmuls + embeddings decay, all biases and layernorms don't.
+            
             decay_params = [p for n, p in param_dict.items() if p.dim() >= 2]
             nodecay_params = [p for n, p in param_dict.items() if p.dim() < 2]
             optim_groups = [
@@ -374,11 +409,20 @@ class GPT(nn.Module):
             if master_process:
                 print(f"num decayed parameter tensors: {len(decay_params)}, with {num_decay_params:,} parameters")
                 print(f"num non-decayed parameter tensors: {len(nodecay_params)}, with {num_nodecay_params:,} parameters")
-            # Create AdamW optimizer and use the fused version if it is available
+            
+            # Create AdamW optimizer and use the fused 
+            version if it is available
             fused_available = 'fused' in inspect.signature(torch.optim.AdamW).parameters
             use_fused = fused_available and 'cuda' in device
             if master_process:
                 print(f"using fused AdamW: {use_fused}")
+            
             optimizer = torch.optim.AdamW(optim_groups, lr=learning_rate, betas=(0.9, 0.95), eps=1e-8, fused=use_fused)
+            
             return optimizer
 ```
+**From the docs...**
+- [torch.numel](https://pytorch.org/docs/stable/generated/torch.numel.html): Returns the total number of elements in the input tensor.
+- [torch.optim.AdamW](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html): Implements AdamW algorithm.
+- [torch.requires_grad](https://pytorch.org/docs/stable/generated/torch.Tensor.requires_grad.html): Is True if gradients need to be computed for this Tensor, False otherwise.
+
