@@ -698,6 +698,13 @@ Additionally, a timeline is initiated in Vis.js to make the UI more user friendl
 - Display Update: Function to update fact display based on the selected date.
 - Reset Functionality: Allows resetting the data via a POST request.
 
+### Test cases
+https://llm-bot-pficsoahpa-uc.a.run.app/static/call_log_20240314_104111.txt
+
+https://llm-bot-pficsoahpa-uc.a.run.app/static/call_log_20240315_104111.txt
+
+https://llm-bot-pficsoahpa-uc.a.run.app/static/call_log_20240317_104111.txt
+
 ### That's a wrap! 
 Check out the [github repo](https://github.com/Anushk97/Cleric_assessment/tree/main)
 
