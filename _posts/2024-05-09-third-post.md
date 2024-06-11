@@ -7,7 +7,7 @@ categories: jekyll update
 
 This app was part of a job interview assignment I worked on. The idea seem pretty cool so I kept working on it a little longer, upgraded the frontend - learnt some javascript, html and flask in the process. 
 
-The project was a good learning about fundamental data structures, APIs, and cloud deployment. The app is deployed [here](https://llm-bot-pficsoahpa-uc.a.run.app/).
+The project was a good learning about fundamental data structures, APIs, and cloud deployment. The app is deployed [here](https://llm-bot-pficsoahpa-uc.a.run.app/). Code test cases are [here](https://github.com/Anushk97/Cleric_assessment/tree/main).
 
 ## The Ask 💭 
 I was asked to create an application which can use LLM to summarize call logs in a nutshell. The app should be able to do 2 things:
