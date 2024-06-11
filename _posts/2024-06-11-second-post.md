@@ -222,7 +222,7 @@ class CausalSelfAttention(nn.Module):
 ---
 ### Dataloaders and training 🎲 
 
-Before loading the data, we need to complete the GPT class defined earlier and add the forward method, load pre-trained weights and optimizers to it. 
+Before loading the data, we need to complete the GPT class defined earlier and add the forward method, load pre-trained weights and optimizers to it for training. 
 
 ```
 class GPT(nn.Module):
@@ -245,7 +245,7 @@ class GPT(nn.Module):
         # init params
         self.apply(self._init_weights)
 ```
-🔥 **Weights initialization method**:  Initializes the weights of the model.
+🔥 **Weights initialization method**:  Initializes with random weights.
 - nn.Linear: Linear layers are initialized with a normal distribution with a mean of 0 and a standard deviation of 0.02 (scaled for some layers).
 - nn.Embedding: Embedding layers are initialized with a normal distribution with a mean of 0 and a standard deviation of 0.02. 
 
@@ -261,7 +261,7 @@ class GPT(nn.Module):
         elif isinstance(module, nn.Embedding):
             torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
 ```
-🔥 **Forward menthod**: Defines the forward pass of the model. 
+🔥 **Forward menthod**: Make a forward pass through the transformer architecture and calculate loss.
 - Input: idx is a tensor of shape [B, T] where B is the batch size and T is the sequence length.
 - Position Embeddings: pos_emb is computed for positions.
 - Token Embeddings: tok_emb is computed for tokens.
