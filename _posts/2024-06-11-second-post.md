@@ -78,7 +78,7 @@ class GPTConfig:
 ```
 
 ---
-#### GPT Class
+#### 👉 GPT Class
 
 This class will consist of Word Token Embeddings (wte), Word Positional Embeddings (wpe), Transformer blocks (h) and Layer Normalization (ln_f).
 - wte: Embedding layer that converts each token in the vocabulary to a n_embd-dimensional embedding vector.
@@ -113,7 +113,7 @@ T
 - [nn.LayerNorm](https://pytorch.org/docs/stable/generated/torch.nn.LayerNorm.html): Applies Layer Normalization over a mini-batch of inputs.
 
 ---
-#### Transformer block
+#### 👉 Transformer block
 
 Next a single transformer Block which will consist of self attention modules followed by Multi Layer Perceptron (MLP) and layer normalization applied before each component. 
 
@@ -137,7 +137,7 @@ class Block(nn.Module):
         return x
 ```
 ---
-#### Multi Layer Perceptron (MLP)
+#### 👉 Multi Layer Perceptron (MLP)
 
 Used within a transformer block to process output of the self attention layer. It consists of a fully connected layer, an activation function and a projection layer. 
 
@@ -163,7 +163,7 @@ class MLP(nn.Module):
 - [nn.GELU](https://pytorch.org/docs/stable/generated/torch.nn.GELU.html): Applies the Gaussian Error Linear Units function. GELU(x)=x∗Φ(x)
 
 ---
-#### Self Attention Operation
+#### 👉 Self Attention Operation
 
 The attention operation allows the model to weigh the importance of each token in a sequence and capture dependencies in a sentence. It has a linear attention layer, a projection layer and a buffer.
 - self.c_attn: A linear layer that projects the input embeddings to three separate sets of embeddings for queries (Q), keys (K), and values (V). This projection increases the dimensionality by 3 times (3 * config.n_embd).
@@ -245,9 +245,9 @@ class GPT(nn.Module):
         # init params
         self.apply(self._init_weights)
 ```
-**Weights initialization method**:  Initializes the weights of the model.
+🔥 **Weights initialization method**:  Initializes the weights of the model.
 - nn.Linear: Linear layers are initialized with a normal distribution with a mean of 0 and a standard deviation of 0.02 (scaled for some layers).
-- nn.Embedding: Embedding layers are initialized with a normal distribution with a mean of 0 and a standard deviation of 0.02. 👇
+- nn.Embedding: Embedding layers are initialized with a normal distribution with a mean of 0 and a standard deviation of 0.02. 
 
 ```
     def _init_weights(self, module):
@@ -261,7 +261,7 @@ class GPT(nn.Module):
         elif isinstance(module, nn.Embedding):
             torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
 ```
-**Forward menthod**: Defines the forward pass of the model. 
+🔥 **Forward menthod**: Defines the forward pass of the model. 
 - Input: idx is a tensor of shape [B, T] where B is the batch size and T is the sequence length.
 - Position Embeddings: pos_emb is computed for positions.
 - Token Embeddings: tok_emb is computed for tokens.
@@ -269,7 +269,7 @@ class GPT(nn.Module):
 - Transformer Blocks: The combined embeddings are passed through each transformer block.
 - Layer Normalization: The final hidden states are normalized.
 - Logits: The final hidden states are projected to vocabulary logits using lm_head.
-- Loss Calculation: If targets are provided, cross-entropy loss is calculated.👇
+- Loss Calculation: If targets are provided, cross-entropy loss is calculated.
 
 ```
     def forward(self, idx, targets=None):
@@ -293,11 +293,11 @@ class GPT(nn.Module):
         return logits, loss
 
 ```
-**Load from pretrained method**: Class method to load pre-trained weights from Hugging Face's GPT-2 models.
+🔥 **Load from pretrained method**: Class method to load pre-trained weights from Hugging Face's GPT-2 models.
 - Model Configuration: Sets the number of layers, heads, and embedding dimensions based on the model type.
 - Initialize Model: Creates a new GPT model with the specified configuration.
 - Load Pre-trained Weights: Loads pre-trained weights from a Hugging Face model.
-- Weight Alignment: Ensures that the weights are correctly aligned and copies them to the new model, handling any necessary transpositions.👇
+- Weight Alignment: Ensures that the weights are correctly aligned and copies them to the new model, handling any necessary transpositions.
 
 ```
     @classmethod
@@ -351,10 +351,10 @@ class GPT(nn.Module):
 ```
 
 
-**Config optimizer method**: Configures the optimizer for training.
+🔥 **Config optimizer method**: Configures the optimizer for training.
 - Parameter Selection: Selects parameters that require gradients.
 - Weight Decay: Groups parameters for weight decay (e.g., weights of linear layers and embeddings) and no weight decay (e.g., biases and layer norms).
-- Optimizer Initialization: Creates an AdamW optimizer, optionally using a fused version if available and running on CUDA. 👇
+- Optimizer Initialization: Creates an AdamW optimizer, optionally using a fused version if available and running on CUDA.
 
 ```
     def configure_optimizers(self, weight_decay, learning_rate, device):
