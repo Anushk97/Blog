@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Image classification on CIFAR 10 Dataset"
-date:   2024-06-04 12:54:15 +0800
+date:   2024-04-04 12:54:15 +0800
 categories: jekyll update
 ---
 
