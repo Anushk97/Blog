@@ -8,14 +8,14 @@ categories: jekyll update
 I recently took part in a Hackathon which was about developing solutions for Urban mobility in Singapore.
 Urban mobility involves public transport, private cars, bikes, and other vehicles. It involves traffic flow and public services like MRT. 
 
-## Business Problem
+## Business Problem 💰
 Use LLMs to help traffic planners respond better in case of an accident, a line breakdown or unforeseen situations like fire or traffic jam. 
 
 Currently the decision making in these scenarios are not driven by data but by intuitive understanding of different areas in Singapore, such as where is the nearest fire station from the point of incident or nearest hospital in the area. 
 
 Using LLM on the dataset collected by the Land and Transport Authority (LTA) in Singapore can help making these decisions more effective in stressful situations. 
 
-## Approach and Dataset
+## Approach and Dataset 🍇
 While coming up with the solution, my team first studied the dataset collected by LTA. They maintain both dynamic and static datasets which can be used by researchers or developers. 
 #### Dynamic datasets 
 - Approved road works and faulty traffic lights
@@ -248,7 +248,7 @@ However, I can carry on with creating a incidence reponse feature which will use
 
 This feature will also suggest nearest support service based on the type of incident. 
 
-### Incident response feature
+### Incident response feature 🚗
 In order to build this feature, we need to create a React application which can render google maps with alternate routes and information like travel time, distance etc. 
 
 #### Render the SG Map
@@ -709,7 +709,7 @@ def routeQuery(text):
 
     return returnText
 ```
-### Gradio App
+### Gradio App 📱
 The last part is to put everything in a Gradio app with different pages and rendered map.
 
 First we need to render the map from our react app to this app. 
