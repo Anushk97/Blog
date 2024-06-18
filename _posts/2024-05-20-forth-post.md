@@ -16,7 +16,7 @@ Currently the decision making in these scenarios are not driven by data but by i
 Using LLM on the dataset collected by the Land and Transport Authority (LTA) in Singapore can help making these decisions more effective in stressful situations. 
 
 ## Proof of Concept
-Before moving on to coding, let me share the final product which might give some context on what is coming next.
+Before moving on to coding, let me share the final product which might give some context on what is coming next. For now, I am yet to deploy the application on cloud. So you can clone the repo and run this application on your machine. 
 
 ![Alt Text](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZW53a2RsbHIydThsMG90MWwxZzBlc2t1cG4zYW80M3M5MXM4anBwaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/j9NjCmIwhuwGD1qPsa/giphy.gif)
 
