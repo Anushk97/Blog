@@ -270,7 +270,7 @@ class GPT(nn.Module):
 
 #### ---------------------------------------------------------
 
-🔥 **Forward menthod**: Make a forward pass through the transformer architecture and calculate loss.
+🔥 **Forward method**: Make a forward pass through the transformer architecture and calculate loss.
 - Input: idx is a tensor of shape [B, T] where B is the batch size and T is the sequence length.
 - Position Embeddings: pos_emb is computed for positions.
 - Token Embeddings: tok_emb is computed for tokens.
