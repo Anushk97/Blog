@@ -137,3 +137,69 @@ class Solution:
         
         return longest
 ```
+-----
+### 21st Aug 
+
+#### 5. Two integer sum II
+
+- Given an array of integers numbers that is sorted in non-decreasing order.
+- Return the indices (1-indexed) of two numbers, [index1, index2], such that they add up to a given target number target and index1 < index2. Note that index1 and index2 cannot be equal, therefore you may not use the same element twice.
+- There will always be exactly one valid solution.
+- Your solution must use O(1)
+- O(1) additional space.
+
+    Example 1:
+    - Input: numbers = [1,2,3,4], target = 3
+    - Output: [1,2]
+
+```
+# approach:
+- usa two pointer approach where first iteration is through the array and second iteration (r) will be in for loop
+- then check if element l + element r == target, if so append to new list
+- return the new list
+
+class Solution:
+    def twoSum(self, nums, target):
+        l = 0
+        res = []
+        while l < len(nums):
+            for r in range(l+1, len(nums)):
+                if nums[l] + nums[r] == target:
+                    res.append(l+1)
+                    res.append(r+1)
+            l += 1
+        
+        return res
+```
+
+#### 6. Max water container
+
+- You are given an integer array heights where heights[i] represents the height of the ith bar.
+- You may choose any two bars to form a container. Return the maximum amount of water a container can store.
+
+    Example 1:
+    - Input: height = [1,7,2,5,4,7,3,6]
+    - Output: 36
+
+```
+# approach:
+- two points with l at starting and r at end. while l < r
+- calculate the max area which is length * breadth
+- length will be min of height[l] and height[r]. breadth will be (r - l)
+- if l < r then increase l else decrease r
+
+class Solution:
+    def maxArea(self, heights):
+        l = 0
+        r = len(heights) - 1
+        res = 0
+
+        while l < r:
+            res = max(res, min(heights[l], heights[r]) * (r - l))
+            if heights[l] < heights[r]:
+                l += 1
+            elif heights[r] <= heights[l]:
+                r -= 1
+        
+        return res
+```
