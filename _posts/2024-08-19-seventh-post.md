@@ -139,6 +139,7 @@ class Solution:
 ```
 -----
 ### 21st Aug 
+*“Continuous improvement is better than delayed perfection.”*
 
 #### 5. Two integer sum II
 
@@ -202,4 +203,64 @@ class Solution:
                 r -= 1
         
         return res
+```
+------
+### 22nd Aug 
+*"You’ll never change your life until you change something you do daily."*
+
+#### 7. Is Palindrome
+- Given a string s, return true if it is a palindrome, otherwise return false.
+- A palindrome is a string that reads the same forward and backward. It is also case-insensitive and ignores all non-alphanumeric characters.
+
+    Example 1:
+    - Input: s = "Was it a car or a cat I saw?"
+    - Output: true
+    - Explanation: After considering only alphanumerical characters we have "wasitacaroracatisaw", which is a palindrome.
+
+```
+#Approach: 
+- iterate over the string to see if the characters are alphabets 
+- check if each character is a number or an alphabet
+- if yes, then lower it and add to empty list with lower method
+- Finally check if the list and reverse of the list is equal
+
+class Solution:
+    def isPalindrome(self, s):
+        new_list = []
+        for i in s:
+            if i.isalnum():
+                new_list.append(i.lower())
+        
+        if new_list == new_list[::-1]:
+            ruturn True 
+    
+        return False
+```
+
+#### 8. Buy and sell crypto
+- You are given an integer array prices where prices[i] is the price of NeetCoin on the ith day.
+- You may choose a single day to buy one NeetCoin and choose a different day in the future to sell it.
+- Return the maximum profit you can achieve. You may choose to not make any transactions, in which case the profit would be 0.
+
+    Example 1:
+    - Input: prices = [10,1,5,6,7,1]
+    - Output: 6 (Explanation: Buy prices[1] and sell prices[4], profit = 7 - 1 = 6.)
+
+```
+approach: 
+- have a variable x which is float('inf')
+- iterate over the list and calulate the minimum of x with x and i 
+- if i > x then calculate profit as the max of profit and i 
+- 
+
+class Solution:
+    def maxProfit(self, prices):
+        res = float('inf')
+        profit = 0
+        for i in range(len(prices)):
+            res = min(res, prices[i])
+            if prices[i] > res:
+                profit = max(profit, prices[i]-res)
+        
+        return profit
 ```
