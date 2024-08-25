@@ -264,3 +264,237 @@ class Solution:
         
         return profit
 ```
+----
+### 23rd Aug 
+
+#### 9. Longest substring without duplicates
+- Given a string s, find the length of the longest substring without duplicate characters.
+- A substring is a contiguous sequence of characters within a string.
+
+    Example 1:
+    - Input: s = "zxyzxyz"
+    - Output: 3 (Explanation: The string "xyz" is the longest without duplicate characters.)
+
+```
+approach:
+- use a set and a l pointer
+- iterate over string and check if char is in set. if it is then remove lth character 
+- add ith char to set
+- calculate res as max of res and window which will be i - l + 1
+
+
+
+class Solution:
+    def lengthofLongestSubstring(self, s):
+        s_set = set()
+        l = 0
+        res = 0
+        for i in range(len(s)):
+            while s[i] in s_set:
+                s_set.remove(s[l])
+                l += 1
+            
+            s_set.add(s[i])
+            res = max(res, i - l + 1)
+
+        return res
+
+```
+
+#### 10. Longest repeating substring with replacement
+- You are given a string s consisting of only uppercase english characters and an integer k. You can choose up to k characters of the string and replace them with any other uppercase English character.
+- After performing at most k replacements, return the length of the longest substring which contains only one distinct character.
+
+    Example 1:
+    - Input: s = "XYYX", k = 2
+    - Output: 4 (Explanation: Either replace the 'X's with 'Y's, or replace the 'Y's with 'X's.)
+
+```
+approach: 
+- use a dictionary, l pointer and max pointer 
+- iterate over s to count the number of each character
+- calculate max as max of max pointer and char s
+- if the window size - max pointer > k then decrease the count of lth char in dictionary
+- return window size
+
+class Solution:
+    def characterReplacement(self, s, k):
+        count = {}
+        l = 0
+        maxD = 0
+        for i in range(len(s)):
+            count[s[i]] = 1 + count.get(s[i], 0)
+            maxD = max(maxD, count[s[r]])
+        
+        if (i - l + 1) - maxD > k:
+            count[s[l]] -= 1
+            l += 1
+        
+        return (i - l + 1)
+```
+-----
+### 24th Aug
+
+#### 11. Permutation String
+- You are given two strings s1 and s2.
+- Return true if s2 contains a permutation of s1, or false otherwise. That means if a permutation of s1 exists as a substring of s2, then return true.
+- Both strings only contain lowercase letters.
+
+    Example 1:
+    - Input: s1 = "abc", s2 = "lecabee"
+    - Output: true (Explanation: The substring "cab" is a permutation of "abc" and is present in "lecabee".)
+
+```
+# approach
+- create a hashmap with the count of every character in the string s1
+- slide a window over string s2 and decrease the counter for chars occured in the window
+- if all counters in hashmap get to zero, means we encountered the permutation
+
+class Solution:
+    def checkInclusion(self, s1, s2):
+        cntr, w = Counter(s1), len(s1)
+
+        for i in range(len(s2)):
+            if s2[i] in cntr:
+                cntr[s2[i]] -= 1
+            if i >= w and s2[i-w] in cntr:
+                cntr[s2[i-w]] += 1
+            
+            if all([cntr[i] == 0 for i in cntr]):
+                return True
+        
+        return False
+```
+
+#### 12. Minimum Stack
+- Design a stack class that supports the push, pop, top, and getMin operations.
+- MinStack() initializes the stack object.
+- void push(int val) pushes the element val onto the stack.
+- void pop() removes the element on the top of the stack.
+- int top() gets the top element of the stack.
+- int getMin() retrieves the minimum element in the stack.
+- Each function should run in O (1) O(1) time.
+
+    Example 1:
+    - Input: ["MinStack", "push", 1, "push", 2, "push", 0, "getMin", "pop", "top", "getMin"]
+    - Output: [null,null,null,null,0,null,2,1]
+
+        Explanation:
+        - MinStack minStack = new MinStack();
+        - minStack.push(1);
+        - minStack.push(2);
+        - minStack.push(0);
+        - minStack.getMin(); // return 0
+        - minStack.pop();
+        - minStack.top();    // return 2
+        - minStack.getMin(); // return 1
+
+```
+#approach: 
+- inititate two lists, one for stack and another for minstack
+- for push, append to stack first, then calculate the min, then append to minstack
+- for pop, just pop from both
+- for top, just return last element from stack
+- for getMin, just return last element from minStack
+
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
+
+    def push(self, val):
+        self.stack.append(val)
+        val = min(val, self.minStack[-1] if self.minStack else val)
+        self.minStack.append(val)
+    
+    def pop(self):
+        self.stack.pop()
+        self.minStack.pop()
+    
+    def top(self):
+        return self.stack[-1]
+    
+    def getMin(self):
+        return self.minStack[-1]
+
+```
+------
+### 25th Aug
+
+#### Evaluate reverse polish notation
+
+- You are given an array of strings tokens that represents a valid arithmetic expression in Reverse Polish Notation.
+- Return the integer that represents the evaluation of the expression.
+-The operands may be integers or the results of other operations.
+- The operators include '+', '-', '*', and '/'.
+- Assume that division between integers always truncates toward zero.
+
+    Example 1:
+    - Input: tokens = ["1","2","+","3","*","4","-"]
+    - Output: 5 (Explanation: ((1 + 2) * 3) - 4 = 5)
+
+```
+#approach: 
+- have an empty stack
+- make if conditions for all the operational character and append to stack accordingly
+- pop the last two element from the stack first and then append a new element
+
+class Solution:
+    def evalRPN(self, tokens):
+        stack = []
+        for i in tokens:
+            if i == '+':
+                stack.append(stack.pop() + stack.pop())
+            elif i == '-':
+                a, b = stack.pop(), stack.pop()
+                stack.append(b-a)
+            elif i == '*':
+                stack.append(stack.pop() * stack.pop())
+            elif i == '/':
+                c, d = stack.pop(), stack.pop()
+                stack.append(int(float(d)/c))
+
+            else:
+                stack.append(int(i))
+        
+        return stack[0]
+```
+
+#### Generate parenthesis
+- You are given an integer n. Return all well-formed parentheses strings that you can generate with n pairs of parentheses.
+
+    Example 1:
+    - Input: n = 1
+    - Output: ["()"]
+
+    Example 2:
+    - Input: n = 3
+    - Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+    
+```
+#approach:
+- use backtracking with two pointers
+- 
+
+class Solution:
+    def generateParenthesis(self, n):
+        stack = []
+        res = []
+        def backtrack(openN, closeN):
+            if openN == closeN == n: # base case
+                res.append(''.join(stack))
+            
+            if openN < n:
+                stack.append("(")
+                backtrack(openN+1, closeN)
+                stack.pop()
+            
+            if closeN < openN:
+                stack.append(")")
+                backtrack(openN, closeN+1)
+                stack.pop()
+        
+        backtrack(0,0)
+        return res
+```
