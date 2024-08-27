@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  5 interesting laws to think about 🤔
+title:  Interesting laws to think about 🤔
 date:   2024-08-24 12:54:15 +0800
 categories: jekyll update
 ---
@@ -44,4 +44,5 @@ Applying Wilson's Law
 
 It encourages patience and thoughtful consideration before taking action. Falkland's Law suggests that delaying decisions can often lead to more clarity and prevent potential regrets
 
+----
 

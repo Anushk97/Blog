@@ -421,7 +421,7 @@ class MinStack:
 ------
 ### 25th Aug
 
-#### Evaluate reverse polish notation
+#### 13. Evaluate reverse polish notation
 
 - You are given an array of strings tokens that represents a valid arithmetic expression in Reverse Polish Notation.
 - Return the integer that represents the evaluation of the expression.
@@ -460,7 +460,7 @@ class Solution:
         return stack[0]
 ```
 
-#### Generate parenthesis
+#### 14. Generate parenthesis
 - You are given an integer n. Return all well-formed parentheses strings that you can generate with n pairs of parentheses.
 
     Example 1:
@@ -471,7 +471,7 @@ class Solution:
     - Input: n = 3
     - Output: ["((()))","(()())","(())()","()(())","()()()"]
 
-    
+
 ```
 #approach:
 - use backtracking with two pointers
@@ -497,4 +497,75 @@ class Solution:
         
         backtrack(0,0)
         return res
+```
+----
+### 26th Aug
+
+#### 15. Daily temperatures 
+- You are given an array of integers temperatures where temperatures[i] represents the daily temperatures on the ith day.
+- Return an array result where result[i] is the number of days after the ith day before a warmer temperature appears on a future day. If there is no day in the future where a warmer temperature will appear for the ith day, set result[i] to 0 instead.
+
+    Example 1:
+    - Input: temperatures = [30,38,30,36,35,40,28]
+    - Output: [1,4,1,2,1,0,0]
+
+```
+#approach:
+- create an array of zeroes which will be equal to the len of temp
+- create an empty stack
+- iterate with index and value over temp list
+- check if current value of element in list is greater than the last value in stack
+- if so, then pop value and index from stack
+- change the element in array with zeroes for that particular index
+- append value and index in stack
+
+
+class Solution:
+    def dailyTemperatures(self, temp):
+        res = [0] * len(temp)
+        stack = []
+
+        for i, v in enumerate(temp):
+            while stack and v > stack[-1][0]:
+                stackT, stackInd = stack.pop()
+                res[stackInd] = i - stackInd
+            stack.append((v,i))
+        
+        return res
+```
+
+#### 16. Binary search
+- You are given an array of distinct integers nums, sorted in ascending order, and an integer target.
+- Implement a function to search for target within nums. If it exists, then return its index, otherwise, return -1.
+- Your solution must run in O(logn) and O(logn) time.
+
+    Example 1:
+    - Input: nums = [-1,0,2,4,6,8], target = 4
+    - Output: 3
+
+```
+#approach:
+- initiate a left and right pointer at 0 and end of list respectively
+- check while l < r
+- calculate middle element 
+- check if middle < target, which means we can bring out l pointer forward upto middle
+- check if middle > target, which means we can bring down r pointer upto middle
+- else we return middle which means the target is found 
+
+class Solution:
+    def search(self, nums, target):
+        l = 0
+        r = len(nums) - 1
+        while l < r:
+            m = (l + r) // 2
+            if nums[m] < target:
+                l = m + 1
+            elif nums[m] > target:
+                r = m - 1
+            else:
+                return m
+        
+        return -1
+
+
 ```
