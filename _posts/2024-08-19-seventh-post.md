@@ -726,6 +726,8 @@ class Solution:
         return prev
 ```
 
+[visualize](https://memlayout.com?code=class%20ListNode%3A%0A%20%20%20%20def%20__init__(self%2C%20val%3D0%2C%20next%3DNone)%3A%0A%20%20%20%20%20%20%20%20self.val%20%3D%20val%0A%20%20%20%20%20%20%20%20self.next%20%3D%20next%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20reverseList(self%2C%20head)%3A%0A%20%20%20%20%20%20%20%20prev%20%3D%20None%0A%20%20%20%20%20%20%20%20while%20head%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20tmp%20%3D%20head.next%0A%20%20%20%20%20%20%20%20%20%20%20%20head.next%20%3D%20prev%0A%20%20%20%20%20%20%20%20%20%20%20%20prev%20%3D%20head%0A%20%20%20%20%20%20%20%20%20%20%20%20head%20%3D%20tmp%0A%20%20%20%20%20%20%20%20return%20prev%0A%0Adef%20test_reverse_list()%3A%0A%20%20%20%20head%20%3D%20ListNode(1)%0A%20%20%20%20head.next%20%3D%20ListNode(2)%0A%20%20%20%20head.next.next%20%3D%20ListNode(3)%0A%20%20%20%20head.next.next.next%20%3D%20ListNode(4)%0A%20%20%20%20head.next.next.next.next%20%3D%20ListNode(5)%0A%0A%20%20%20%20solution%20%3D%20Solution()%0A%20%20%20%20reversed_head%20%3D%20solution.reverseList(head)%0A%20%20%20%20%0A%20%20%20%20return%20reversed_head%0A%0Aprint(test_reverse_list()))
+
 ----
 ### 30th Aug
 
@@ -779,7 +781,7 @@ class Solution:
         
         return maxSub
 ```
-[visualize](https:memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20maxSubArray(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20maxSub%20%3D%20nums%5B0%5D%0A%20%20%20%20%20%20%20%20curSum%20%3D%200%0A%20%20%20%20%20%20%20%20for%20i%20in%20nums%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20curSum%20%3C%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20curSum%20%3D%200%0A%20%20%20%20%20%20%20%20%20%20%20%20curSum%20%2B%3D%20i%0A%20%20%20%20%20%20%20%20%20%20%20%20maxSub%20%3D%20max(maxSub%2C%20curSum)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20maxSub%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.maxSubArray(%5B-2%2C1%2C-3%2C4%2C-1%2C2%2C1%2C-5%2C4%5D)))
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20maxSubArray(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20maxSub%20%3D%20nums%5B0%5D%0A%20%20%20%20%20%20%20%20curSum%20%3D%200%0A%20%20%20%20%20%20%20%20for%20i%20in%20nums%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20curSum%20%3C%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20curSum%20%3D%200%0A%20%20%20%20%20%20%20%20%20%20%20%20curSum%20%2B%3D%20i%0A%20%20%20%20%20%20%20%20%20%20%20%20maxSub%20%3D%20max(maxSub%2C%20curSum)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20maxSub%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.maxSubArray(%5B-2%2C1%2C-3%2C4%2C-1%2C2%2C1%2C-5%2C4%5D)))
 
 
 #### 26. [insert intervals](https://leetcode.com/problems/insert-interval/solutions/)
@@ -808,7 +810,7 @@ class Solution:
     
         return merged
 ```
-[visualize](https:memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20insert(self%2C%20intervals%2C%20newInterval)%3A%0A%20%20%20%20%20%20%20%20intervals.append(newInterval)%0A%20%20%20%20%20%20%20%20merged%20%3D%20%5B%5D%0A%0A%20%20%20%20%20%20%20%20intervals.sort(key%3Dlambda%20x%3Ax%5B0%5D)%0A%20%20%20%20%20%20%20%20prev%20%3D%20intervals%5B0%5D%0A%20%20%20%20%20%20%20%20for%20i%20in%20intervals%5B1%3A%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20prev%5B1%5D%20%3E%3D%20i%5B0%5D%3A%20%23there%20is%20an%20overlap%20if%20this%20is%20true%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20prev%5B1%5D%20%3D%20max(prev%5B1%5D%2C%20i%5B1%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20merged.append(prev)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20prev%20%3D%20i%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20merged.append(prev)%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20merged%0A%0Asol%20%3D%20Solution()%0Aprint(sol.insert(intervals%20%3D%20%5B%5B1%2C3%5D%2C%5B6%2C9%5D%5D%2C%20newInterval%20%3D%20%5B2%2C5%5D)))
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20insert(self%2C%20intervals%2C%20newInterval)%3A%0A%20%20%20%20%20%20%20%20intervals.append(newInterval)%0A%20%20%20%20%20%20%20%20merged%20%3D%20%5B%5D%0A%0A%20%20%20%20%20%20%20%20intervals.sort(key%3Dlambda%20x%3Ax%5B0%5D)%0A%20%20%20%20%20%20%20%20prev%20%3D%20intervals%5B0%5D%0A%20%20%20%20%20%20%20%20for%20i%20in%20intervals%5B1%3A%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20prev%5B1%5D%20%3E%3D%20i%5B0%5D%3A%20%23there%20is%20an%20overlap%20if%20this%20is%20true%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20prev%5B1%5D%20%3D%20max(prev%5B1%5D%2C%20i%5B1%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20merged.append(prev)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20prev%20%3D%20i%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20merged.append(prev)%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20merged%0A%0Asol%20%3D%20Solution()%0Aprint(sol.insert(intervals%20%3D%20%5B%5B1%2C3%5D%2C%5B6%2C9%5D%5D%2C%20newInterval%20%3D%20%5B2%2C5%5D)))
 
 
 ------
