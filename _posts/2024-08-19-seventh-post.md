@@ -569,3 +569,240 @@ class Solution:
 
 
 ```
+
+----
+### 27th Aug
+
+#### 17. Balanced binary tree
+
+[problem](https://leetcode.com/problems/balanced-binary-tree/description/)
+
+```
+# approach:
+- do it recursively with DFS
+- return a boolean value and the height
+- calculate the balance as the diff between left and right subtree should be less than 1
+- balance is only going to be true if left and right subtrees are balanced
+
+class Solution:
+    def isBalanced(self, root):
+        def dfs(root):
+            if not root:
+                return [True, 0]
+            
+            left = dfs(root.left)
+            right = dfs(root.right)
+            balance = (left[0] and right[0] and 
+                    abs(left[1]-right[1]) <= 1)
+
+            return [balanced, 1 + max(left[1], right[1])]
+        
+        return dfs(root)[0]
+```
+
+
+#### 18. Lowest common ancestor of binary search tree
+
+[problem](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/solutions/)
+
+```
+- start with the root as it is always the common ancestor
+- left subtree is always going to be less than parent and right subtree is going to be greater than parent
+- time complexity will be height of the tree which is usually log(n)
+
+class Solution:
+    def lowestCommonAncestor(self, root):
+        cur = root
+
+        while cur:
+            if p.val > cur.val and q.val > cur.val:
+                cur = cur.right
+            elif p.val < cur.val and q.val < cur.val:
+                cur = cur.left
+            else:
+                return cur
+```
+-----
+### 28th Aug
+
+#### 19. Implement queue using stacks
+
+queue is a FIFO data structure. main operations in queue are push and pop. peek is to return the element in the front. 
+push will be O(1) and pop should be O(n), how to get pop in constant time?
+peek is technically getting the last element
+
+
+[problem](https://leetcode.com/problems/implement-queue-using-stacks/solutions/)
+
+```
+class Solution:
+    def __init__(self):
+        self.s1 = []
+        self.s2 = []
+
+    def push(self, x):
+        self.s1.append(x)
+
+    def pop(self):
+        if not self.s2:
+            while self.s1:
+                self.s2.append(self.s1.pop())
+
+        return self.s2.pop()
+
+    def peek(self):
+        if not self.s2:
+                while self.s1:
+                    self.s2.append(self.s1.pop())
+        
+        return self.s2[-1]
+    
+    def empty(self):
+        return max(len(self.s1), len(self.s2)) == 0
+```
+
+#### 20. Climbing stairs
+
+[problem](https://leetcode.com/problems/climbing-stairs/solutions/)
+
+```
+- two variables shifting n - 1 times. already accounting for the first step during initialization
+
+class Solution:
+    def climbStairs(self, n):
+        one, two = 1,1
+
+        for i in range(n-1):
+            tmp = one
+            one = one + two # number of ways to reach the current step
+            two = tmp
+        
+        return one # this contains the number of ways to climb n steps
+```
+------
+### 29th Aug
+
+#### 21. [Longest Palindrome](https://leetcode.com/problems/longest-palindrome/solutions/)
+
+Palindome is a string which is the same when reversed. odd and even length string matters 
+For odd length string, we need a pair of matching pairs and a single character which is not a pair
+for even length, we need all pairs 
+need to have a hasmap to count the number of chars in string.
+
+```
+class Solution:
+    def longestPalindrom(self, s):
+        count = defaultdict(int)
+        res = 0
+
+        for c in s:
+            count[c] += 1
+            if count[c] % 2 == 0: #if there is a pair then you increment the result by 2
+                res += 2
+        
+        # if the count is odd, then increment the result by 1
+        for cnt in count.values():
+            if cnt % 2 == 1:
+                res += 1
+                break
+
+        return res
+```
+
+#### 22. [Reverse Linked list](https://leetcode.com/problems/reverse-linked-list/description/)
+
+Have a prev pointer which will be none and then iterate over LL starting from head. point each next pointer to prev node
+
+```
+class Solution:
+    def reverseList(self, head):
+        prev = None
+        while head:
+            tmp = head.next
+            head.next = prev
+            prev = head
+            head = tmp
+        
+        return prev
+```
+
+----
+### 30th Aug
+
+#### 23. [max depth of binary tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/solutions/)
+
+Recursively iterate over the tree 
+
+```
+class Solution:
+    def maxDepth(self, root):
+        if not root:
+            return 0
+        return 1 + (self.maxDepth(root.left), self.maxDepth(root.right))
+```
+
+#### 24. [middle of linked list](https://leetcode.com/problems/middle-of-the-linked-list/description/)
+
+Have two pointers slow and fast. iterate over fast until the end of the list which slow incrementing as well. when fast will reach the end
+slow will reach the middle. 
+
+```
+class Solution:
+    def middleNode(self, head):
+        slow = head
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        return slow
+```
+----
+### 31st Aug
+
+#### 25. [maximum subarray](https://leetcode.com/problems/maximum-subarray/solutions/)
+
+can compute every single subarray
+maintain a current sum variable which will add the element in the array
+another variable which will maintain the max subarray. it will be initialized to the first array element
+
+```
+class Solution:
+    def maxSubArray(self, nums):
+        maxSub = nums[0]
+        curSum = 0
+        for i in nums:
+            if curSum < 0:
+                curSum = 0
+            curSum += i
+            maxSub = max(maxSub, curSum)
+        
+        return maxSub
+```
+
+#### 26. [insert intervals](https://leetcode.com/problems/insert-interval/solutions/)
+
+iterate over the lists of list to check whether there is an overlap between previous and current subarray
+if there is then find the max 
+also need to sort the interval list by start time first and set the prev to the start time of first interval
+in the loop, append prev to new list (merged)
+
+```
+class Solution:
+    def insert(self, intervals, newIntervals):
+        intervals.append(newIntervals)
+        merged = []
+
+        intervals.sort(key=lambda x:x[0])
+        prev = intervals[0]
+        for i in intervals[1:]:
+            if prev[1] >= i[0]: #there is an overlap if this is true
+                prev[1] = max(prev[1], i[1])
+            else:
+                merge.append(prev)
+                prev = i
+            
+        merged.append(prev)
+    
+        return merged
+```
