@@ -137,6 +137,9 @@ class Solution:
         
         return longest
 ```
+
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20longestConsecutive(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20numsSet%20%3D%20set(nums)%0A%20%20%20%20%20%20%20%20longest%20%3D%200%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20for%20i%20in%20numsSet%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(i-1)%20not%20in%20numsSet%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20length%20%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20while%20(i%20%2B%20length)%20in%20numsSet%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20length%20%2B%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20longest%20%3D%20max(length%2C%20longest)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20longest%0A%0Asol%20%3D%20Solution()%0Aprint(sol.longestConsecutive(%5B2%2C20%2C4%2C10%2C3%2C4%2C5%5D)))
+
 -----
 ### 21st Aug 
 *“Continuous improvement is better than delayed perfection.”*
@@ -204,6 +207,9 @@ class Solution:
         
         return res
 ```
+
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20maxArea(self%2C%20heights)%3A%0A%20%20%20%20%20%20%20%20l%20%3D%200%0A%20%20%20%20%20%20%20%20r%20%3D%20len(heights)%20-%201%0A%20%20%20%20%20%20%20%20res%20%3D%200%0A%0A%20%20%20%20%20%20%20%20while%20l%20%3C%20r%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20res%20%3D%20max(res%2C%20min(heights%5Bl%5D%2C%20heights%5Br%5D)%20*%20(r%20-%20l))%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20heights%5Bl%5D%20%3C%20heights%5Br%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20l%20%2B%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20elif%20heights%5Br%5D%20%3C%3D%20heights%5Bl%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20r%20-%3D%201%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20res%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.maxArea(%5B1%2C7%2C2%2C5%2C4%2C7%2C3%2C6%5D)))
+
 ------
 ### 22nd Aug 
 *"You’ll never change your life until you change something you do daily."*
@@ -324,7 +330,7 @@ class Solution:
         maxD = 0
         for i in range(len(s)):
             count[s[i]] = 1 + count.get(s[i], 0)
-            maxD = max(maxD, count[s[r]])
+            maxD = max(maxD, count[s[i]])
         
         if (i - l + 1) - maxD > k:
             count[s[l]] -= 1
@@ -332,6 +338,9 @@ class Solution:
         
         return (i - l + 1)
 ```
+
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20characterReplacement(self%2C%20s%2C%20k)%3A%0A%20%20%20%20%20%20%20%20count%20%3D%20%7B%7D%0A%20%20%20%20%20%20%20%20l%20%3D%200%0A%20%20%20%20%20%20%20%20maxD%20%3D%200%0A%20%20%20%20%20%20%20%20for%20i%20in%20range(len(s))%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20count%5Bs%5Bi%5D%5D%20%3D%201%20%2B%20count.get(s%5Bi%5D%2C%200)%0A%20%20%20%20%20%20%20%20%20%20%20%20maxD%20%3D%20max(maxD%2C%20count%5Bs%5Bi%5D%5D)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20if%20(i%20-%20l%20%2B%201)%20-%20maxD%20%3E%20k%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20count%5Bs%5Bl%5D%5D%20-%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20l%20%2B%3D%201%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20(i%20-%20l%20%2B%201)%0A%0Asol%20%3D%20Solution()%0Aprint(sol.characterReplacement(s%20%3D%20'XYYX'%2C%20k%20%3D%202)))
+
 -----
 ### 24th Aug
 
@@ -365,6 +374,9 @@ class Solution:
         
         return False
 ```
+
+[visualize](https://memlayout.com?code=from%20collections%20import%20Counter%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20checkInclusion(self%2C%20s1%2C%20s2)%3A%0A%20%20%20%20%20%20%20%20cntr%2C%20w%20%3D%20Counter(s1)%2C%20len(s1)%0A%0A%20%20%20%20%20%20%20%20for%20i%20in%20range(len(s2))%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20s2%5Bi%5D%20in%20cntr%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cntr%5Bs2%5Bi%5D%5D%20-%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20i%20%3E%3D%20w%20and%20s2%5Bi-w%5D%20in%20cntr%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cntr%5Bs2%5Bi-w%5D%5D%20%2B%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20all(%5Bcntr%5Bi%5D%20%3D%3D%200%20for%20i%20in%20cntr%5D)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20True%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20False%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.checkInclusion(s1%20%3D%20'abc'%2C%20s2%20%3D%20'lecabee')))
+
 
 #### 12. Minimum Stack
 - Design a stack class that supports the push, pop, top, and getMin operations.
@@ -498,6 +510,9 @@ class Solution:
         backtrack(0,0)
         return res
 ```
+
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20generateParenthesis(self%2C%20n)%3A%0A%20%20%20%20%20%20%20%20stack%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20def%20backtrack(openN%2C%20closeN)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20openN%20%3D%3D%20closeN%20%3D%3D%20n%3A%20%23%20base%20case%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res.append(''.join(stack))%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20openN%20%3C%20n%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stack.append(%22(%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20backtrack(openN%2B1%2C%20closeN)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stack.pop()%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20closeN%20%3C%20openN%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stack.append(%22)%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20backtrack(openN%2C%20closeN%2B1)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stack.pop()%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20backtrack(0%2C0)%0A%20%20%20%20%20%20%20%20return%20res%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.generateParenthesis(2)))
+
 ----
 ### 26th Aug
 
@@ -533,6 +548,8 @@ class Solution:
         
         return res
 ```
+
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20dailyTemperatures(self%2C%20temp)%3A%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B0%5D%20*%20len(temp)%0A%20%20%20%20%20%20%20%20stack%20%3D%20%5B%5D%0A%0A%20%20%20%20%20%20%20%20for%20i%2C%20v%20in%20enumerate(temp)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20while%20stack%20and%20v%20%3E%20stack%5B-1%5D%5B0%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stackT%2C%20stackInd%20%3D%20stack.pop()%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res%5BstackInd%5D%20%3D%20i%20-%20stackInd%0A%20%20%20%20%20%20%20%20%20%20%20%20stack.append((v%2Ci))%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20res%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.dailyTemperatures(%5B30%2C38%2C30%2C36%2C35%2C40%2C28%5D)))
 
 #### 16. Binary search
 - You are given an array of distinct integers nums, sorted in ascending order, and an integer target.
@@ -679,6 +696,9 @@ class Solution:
         
         return one # this contains the number of ways to climb n steps
 ```
+
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20climbStairs(self%2C%20n)%3A%0A%20%20%20%20%20%20%20%20one%2C%20two%20%3D%201%2C1%0A%0A%20%20%20%20%20%20%20%20for%20i%20in%20range(n-1)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20tmp%20%3D%20one%0A%20%20%20%20%20%20%20%20%20%20%20%20one%20%3D%20one%20%2B%20two%20%23%20number%20of%20ways%20to%20reach%20the%20current%20step%0A%20%20%20%20%20%20%20%20%20%20%20%20two%20%3D%20tmp%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20one%20%23%20this%20contains%20the%20number%20of%20ways%20to%20climb%20n%20steps%0A%20%20%20%20%20%20%20%20%0A%0Asol%20%3D%20Solution()%0Aprint(sol.climbStairs(8)))
+
 ------
 ### 29th Aug
 
@@ -708,6 +728,9 @@ class Solution:
 
         return res
 ```
+
+[visualize](https://memlayout.com?code=from%20collections%20import%20defaultdict%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20longestPalindrom(self%2C%20s)%3A%0A%20%20%20%20%20%20%20%20count%20%3D%20defaultdict(int)%0A%20%20%20%20%20%20%20%20res%20%3D%200%0A%0A%20%20%20%20%20%20%20%20for%20c%20in%20s%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20count%5Bc%5D%20%2B%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20count%5Bc%5D%20%25%202%20%3D%3D%200%3A%20%23if%20there%20is%20a%20pair%20then%20you%20increment%20the%20result%20by%202%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res%20%2B%3D%202%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%23%20if%20the%20count%20is%20odd%2C%20then%20increment%20the%20result%20by%201%0A%20%20%20%20%20%20%20%20for%20cnt%20in%20count.values()%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20cnt%20%25%202%20%3D%3D%201%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res%20%2B%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20break%0A%0A%20%20%20%20%20%20%20%20return%20res%0A%0Asol%20%3D%20Solution()%0Aprint(sol.longestPalindrom(%22abccccdd%22)))
+
 
 #### 22. [Reverse Linked list](https://leetcode.com/problems/reverse-linked-list/description/)
 
@@ -841,4 +864,64 @@ class Solution:
 
         return res
 ```
+[visualize](https://memlayout.com?code=%23%20Definition%20for%20a%20binary%20tree%20node.%0Aclass%20TreeNode%3A%0A%20%20%20%20def%20__init__(self%2C%20val%3D0%2C%20left%3DNone%2C%20right%3DNone)%3A%0A%20%20%20%20%20%20%20%20self.val%20%3D%20val%0A%20%20%20%20%20%20%20%20self.left%20%3D%20left%0A%20%20%20%20%20%20%20%20self.right%20%3D%20right%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20levelOrder(self%2C%20root)%3A%0A%20%20%20%20%20%20%20%20q%20%3D%20%5Broot%5D%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20while%20q%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20level%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20for%20i%20in%20range(len(q))%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20node%20%3D%20q.pop(0)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20node%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20level.append(node.val)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20q.append(node.left)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20q.append(node.right)%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20level%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res.append(level)%0A%0A%20%20%20%20%20%20%20%20return%20res%0A%0Adef%20test_level_order()%3A%0A%20%20%20%20%23%20Create%20a%20binary%20tree%0A%20%20%20%20%23%20%20%20%20%20%203%0A%20%20%20%20%23%20%20%20%20%2F%20%20%20%5C%0A%20%20%20%20%23%20%20%209%20%20%20%2020%0A%20%20%20%20%23%20%20%20%20%20%20%20%2F%20%20%5C%0A%20%20%20%20%23%20%20%20%20%20%2015%20%20%207%0A%20%20%20%20root%20%3D%20TreeNode(3)%0A%20%20%20%20root.left%20%3D%20TreeNode(9)%0A%20%20%20%20root.right%20%3D%20TreeNode(20)%0A%20%20%20%20root.right.left%20%3D%20TreeNode(15)%0A%20%20%20%20root.right.right%20%3D%20TreeNode(7)%0A%0A%20%20%20%20%23%20Create%20an%20instance%20of%20Solution%0A%20%20%20%20solution%20%3D%20Solution()%0A%0A%20%20%20%20%23%20Run%20the%20level%20order%20traversal%0A%20%20%20%20result%20%3D%20solution.levelOrder(root)%0A%0A%20%20%20%20%23%20Expected%20output%0A%20%20%20%20expected%20%3D%20%5B%5B3%5D%2C%20%5B9%2C%2020%5D%2C%20%5B15%2C%207%5D%5D%0A%0A%20%20%20%20%23%20Check%20if%20the%20result%20matches%20the%20expected%20output%0A%20%20%20%20assert%20result%20%3D%3D%20expected%2C%20f%22Expected%20%7Bexpected%7D%2C%20but%20got%20%7Bresult%7D%22%0A%0A%20%20%20%20print(%22Test%20case%20passed%20successfully!%22)%0A%0A%20%20%20%20%23%20Test%20with%20an%20empty%20tree%0A%20%20%20%20assert%20solution.levelOrder(None)%20%3D%3D%20%5B%5D%2C%20%22Empty%20tree%20should%20return%20an%20empty%20list%22%0A%0A%20%20%20%20print(%22Empty%20tree%20test%20case%20passed%20successfully!%22)%0A%0A%23%20Run%20the%20test%0Atest_level_order())
 
+
+#### 28. [combination sum](https://leetcode.com/problems/combination-sum/description/)
+
+each candidate, we're exploring two possibilities: either we include it in our combination (potentially multiple times) or we don't. 
+This creates a decision tree that the DFS traverses, building up combinations and backtracking when necessary.
+
+```
+class Solution:
+    def combinationSum(self, candidates, target):
+        res = []
+        def dfs(i, lst, total):
+            if total == target:
+                res.append(lst.copy())
+                return
+            if i >= len(candidates) or total > target:
+                return 
+            
+            # Include the current candidate: We append it to lst, update the total, and recurse
+            lst.append(candidates[i])
+            dfs(i, lst, total+candidates[i])
+
+            # Exclude the current candidate: We move to the next index without changing lst or total
+            lst.pop()
+            dfs(i+1, lst, total)
+        
+        dfs(0, [], 0)
+        return res
+```
+
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20combinationSum(self%2C%20candidates%2C%20target)%3A%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20def%20dfs(i%2C%20lst%2C%20total)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20total%20%3D%3D%20target%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res.append(lst.copy())%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20i%20%3E%3D%20len(candidates)%20or%20total%20%3E%20target%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%23%20Include%20the%20current%20candidate%3A%20We%20append%20it%20to%20lst%2C%20update%20the%20total%2C%20and%20recurse%0A%20%20%20%20%20%20%20%20%20%20%20%20lst.append(candidates%5Bi%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20dfs(i%2C%20lst%2C%20total%2Bcandidates%5Bi%5D)%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%23%20Exclude%20the%20current%20candidate%3A%20We%20move%20to%20the%20next%20index%20without%20changing%20lst%20or%20total%0A%20%20%20%20%20%20%20%20%20%20%20%20lst.pop()%0A%20%20%20%20%20%20%20%20%20%20%20%20dfs(i%2B1%2C%20lst%2C%20total)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20dfs(0%2C%20%5B%5D%2C%200)%0A%20%20%20%20%20%20%20%20return%20res%0A%0Asol%20%3D%20Solution()%0Aprint(sol.combinationSum(candidates%20%3D%20%5B2%2C3%2C6%2C7%5D%2C%20target%20%3D%207)))
+
+----
+### 2nd Sept
+
+#### 29. [permutations](https://leetcode.com/problems/permutations/description/)
+
+ swapping elements to generate all possible arrangements.
+ time complexity of this algorithm is O(n!)
+
+```
+class Solution:
+    def permute(self, nums):
+        res = []
+        def backtracking(start, end):
+            
+            #base case
+            if start == end:
+                res.append(nums[:])
+            
+            for i in range(start, end):
+                nums[i], nums[start] = nums[start], nums[i]
+                backtracking(start+1, end)
+                nums[i], nums[start] = nums[start], nums[i]
+        
+        backtracking(0, len(nums))
+        return res 
+```
+
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20permute(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20def%20backtracking(start%2C%20end)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%23base%20case%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20start%20%3D%3D%20end%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res.append(nums%5B%3A%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20for%20i%20in%20range(start%2C%20end)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20nums%5Bi%5D%2C%20nums%5Bstart%5D%20%3D%20nums%5Bstart%5D%2C%20nums%5Bi%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20backtracking(start%2B1%2C%20end)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20nums%5Bi%5D%2C%20nums%5Bstart%5D%20%3D%20nums%5Bstart%5D%2C%20nums%5Bi%5D%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20backtracking(0%2C%20len(nums))%0A%20%20%20%20%20%20%20%20return%20res%20%0A%0Asol%20%3D%20Solution()%0Aprint(sol.permute(%5B1%2C2%2C3%5D)))
