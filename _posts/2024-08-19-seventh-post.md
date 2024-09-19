@@ -617,6 +617,8 @@ class Solution:
         return dfs(root)[0]
 ```
 
+[visualize](https://memlayout.com?code=class%20TreeNode%3A%0A%20%20%20%20def%20__init__(self%2C%20val%3D0%2C%20left%3DNone%2C%20right%3DNone)%3A%0A%20%20%20%20%20%20%20%20self.val%20%3D%20val%0A%20%20%20%20%20%20%20%20self.left%20%3D%20left%0A%20%20%20%20%20%20%20%20self.right%20%3D%20right%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20isBalanced(self%2C%20root)%3A%0A%20%20%20%20%20%20%20%20def%20dfs(root)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20not%20root%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20%5BTrue%2C%200%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20left%20%3D%20dfs(root.left)%0A%20%20%20%20%20%20%20%20%20%20%20%20right%20%3D%20dfs(root.right)%0A%20%20%20%20%20%20%20%20%20%20%20%20balanced%20%3D%20(left%5B0%5D%20and%20right%5B0%5D%20and%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20abs(left%5B1%5D%20-%20right%5B1%5D)%20%3C%3D%201)%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20%5Bbalanced%2C%201%20%2B%20max(left%5B1%5D%2C%20right%5B1%5D)%5D%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20dfs(root)%5B0%5D%0A%0A%23%20Create%20a%20binary%20tree%0A%23%20%20%20%20%20%20%201%0A%23%20%20%20%20%20%20%2F%20%5C%0A%23%20%20%20%20%202%20%20%203%0A%23%20%20%20%20%2F%20%5C%0A%23%20%20%204%20%20%205%0A%23%20%20%2F%0A%23%206%0A%0Aroot%20%3D%20TreeNode(1)%0Aroot.left%20%3D%20TreeNode(2)%0Aroot.right%20%3D%20TreeNode(3)%0Aroot.left.left%20%3D%20TreeNode(4)%0Aroot.left.right%20%3D%20TreeNode(5)%0Aroot.left.left.left%20%3D%20TreeNode(6)%0A%0A%23%20Create%20an%20instance%20of%20the%20Solution%20class%0Asolution%20%3D%20Solution()%0A%0A%23%20Check%20if%20the%20tree%20is%20balanced%0Ais_balanced%20%3D%20solution.isBalanced(root)%0A%0Aprint(f%22Is%20the%20binary%20tree%20balanced%3F%20%7B'Yes'%20if%20is_balanced%20else%20'No'%7D%22)%0A%0A%23%20Expected%20output%3A%20Is%20the%20binary%20tree%20balanced%3F%20Yes)
+
 
 #### 18. Lowest common ancestor of binary search tree
 
@@ -639,6 +641,9 @@ class Solution:
             else:
                 return cur
 ```
+
+[visualize](https://memlayout.com?code=class%20TreeNode%3A%0A%20%20%20%20def%20__init__(self%2C%20val)%3A%0A%20%20%20%20%20%20%20%20self.val%20%3D%20val%0A%20%20%20%20%20%20%20%20self.left%20%3D%20None%0A%20%20%20%20%20%20%20%20self.right%20%3D%20None%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20lowestCommonAncestor(self%2C%20root%2C%20p%2C%20q)%3A%0A%20%20%20%20%20%20%20%20cur%20%3D%20root%0A%0A%20%20%20%20%20%20%20%20while%20cur%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20p.val%20%3E%20cur.val%20and%20q.val%20%3E%20cur.val%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cur%20%3D%20cur.right%0A%20%20%20%20%20%20%20%20%20%20%20%20elif%20p.val%20%3C%20cur.val%20and%20q.val%20%3C%20cur.val%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cur%20%3D%20cur.left%0A%20%20%20%20%20%20%20%20%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20cur%0A%0A%23%20Create%20a%20binary%20search%20tree%0A%23%20%20%20%20%20%20%20%206%0A%23%20%20%20%20%20%20%2F%20%20%20%5C%0A%23%20%20%20%20%202%20%20%20%20%208%0A%23%20%20%20%20%2F%20%5C%20%20%20%2F%20%5C%0A%23%20%20%200%20%20%204%207%20%20%209%0A%23%20%20%20%20%20%20%2F%20%5C%0A%23%20%20%20%20%203%20%20%205%0A%0Aroot%20%3D%20TreeNode(6)%0Aroot.left%20%3D%20TreeNode(2)%0Aroot.right%20%3D%20TreeNode(8)%0Aroot.left.left%20%3D%20TreeNode(0)%0Aroot.left.right%20%3D%20TreeNode(4)%0Aroot.right.left%20%3D%20TreeNode(7)%0Aroot.right.right%20%3D%20TreeNode(9)%0Aroot.left.right.left%20%3D%20TreeNode(3)%0Aroot.left.right.right%20%3D%20TreeNode(5)%0A%0A%23%20Create%20an%20instance%20of%20the%20Solution%20class%0Asolution%20%3D%20Solution()%0A%0A%23%20Define%20two%20nodes%20to%20find%20their%20lowest%20common%20ancestor%0Ap%20%3D%20root.left%20%20%23%20Node%20with%20value%202%0Aq%20%3D%20root.left.right.right%20%20%23%20Node%20with%20value%205%0A%0A%23%20Find%20the%20lowest%20common%20ancestor%0Alca%20%3D%20solution.lowestCommonAncestor(root%2C%20p%2C%20q)%0A%0Aprint(f%22The%20lowest%20common%20ancestor%20of%20%7Bp.val%7D%20and%20%7Bq.val%7D%20is%3A%20%7Blca.val%7D%22)%0A%0A%23%20Expected%20output%3A%20The%20lowest%20common%20ancestor%20of%202%20and%205%20is%3A%202)
+
 -----
 ### 28th Aug
 
@@ -925,3 +930,335 @@ class Solution:
 ```
 
 [visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20permute(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20def%20backtracking(start%2C%20end)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%23base%20case%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20start%20%3D%3D%20end%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res.append(nums%5B%3A%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20for%20i%20in%20range(start%2C%20end)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20nums%5Bi%5D%2C%20nums%5Bstart%5D%20%3D%20nums%5Bstart%5D%2C%20nums%5Bi%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20backtracking(start%2B1%2C%20end)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20nums%5Bi%5D%2C%20nums%5Bstart%5D%20%3D%20nums%5Bstart%5D%2C%20nums%5Bi%5D%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20backtracking(0%2C%20len(nums))%0A%20%20%20%20%20%20%20%20return%20res%20%0A%0Asol%20%3D%20Solution()%0Aprint(sol.permute(%5B1%2C2%2C3%5D)))
+
+#### 30. [subsets](https://leetcode.com/problems/subsets/description/)
+
+making a binary choice (include/exclude) for each element and exploring all paths in the resulting decision tree, we naturally generate all possible subsets of the input list.
+
+```
+class Solution:
+    def subsets(self, nums):
+        res = []
+        subset = []
+        def dfs(i):
+            if i == len(nums):
+                res.append(subset.copy())
+                return 
+            
+            subset.append(nums[i])
+            dfs(i + 1)
+            subset.pop()
+            dfs(i + 1)
+        
+        dfs(0)
+        return res
+```
+
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20subsets(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20subset%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20def%20dfs(i)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20i%20%3D%3D%20len(nums)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res.append(subset.copy())%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20subset.append(nums%5Bi%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20dfs(i%20%2B%201)%0A%20%20%20%20%20%20%20%20%20%20%20%20subset.pop()%0A%20%20%20%20%20%20%20%20%20%20%20%20dfs(i%20%2B%201)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20dfs(0)%0A%20%20%20%20%20%20%20%20return%20res%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.subsets(%5B1%2C2%2C3%5D)))
+
+-------
+
+### 3rd Sept 
+
+#### 31. [diameter of binary tree](https://leetcode.com/problems/diameter-of-binary-tree/description/)
+
+```
+class Solution:
+    def diameterofBinaryTree(self, root):
+        res = [0]
+        def dfs(root):
+            if not root:
+                return -1
+            left = dfs(root.left)
+            right = dfs(root.right)
+            res[0] = max(res[0], left + right + 2) #updates the maximum diameter.
+            return 1 + max(left, right) #height of the subtree
+        
+        dfs(root)
+        return res[0]
+```
+[visualize](https://memlayout.com?code=class%20TreeNode%3A%0A%20%20%20%20def%20__init__(self%2C%20val%3D0%2C%20left%3DNone%2C%20right%3DNone)%3A%0A%20%20%20%20%20%20%20%20self.val%20%3D%20val%0A%20%20%20%20%20%20%20%20self.left%20%3D%20left%0A%20%20%20%20%20%20%20%20self.right%20%3D%20right%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20diameterOfBinaryTree(self%2C%20root)%3A%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B0%5D%0A%20%20%20%20%20%20%20%20def%20dfs(root)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20not%20root%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20-1%0A%20%20%20%20%20%20%20%20%20%20%20%20left%20%3D%20dfs(root.left)%0A%20%20%20%20%20%20%20%20%20%20%20%20right%20%3D%20dfs(root.right)%0A%20%20%20%20%20%20%20%20%20%20%20%20res%5B0%5D%20%3D%20max(res%5B0%5D%2C%20left%20%2B%20right%20%2B%202)%0A%20%20%20%20%20%20%20%20%20%20%20%20return%201%20%2B%20max(left%2C%20right)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20dfs(root)%0A%20%20%20%20%20%20%20%20return%20res%5B0%5D%0A%0A%23%20Create%20a%20binary%20tree%0A%23%20%20%20%20%20%20%201%0A%23%20%20%20%20%20%20%2F%20%5C%0A%23%20%20%20%20%202%20%20%203%0A%23%20%20%20%20%2F%20%5C%0A%23%20%20%204%20%20%205%0A%23%20%20%2F%0A%23%206%0A%0Aroot%20%3D%20TreeNode(1)%0Aroot.left%20%3D%20TreeNode(2)%0Aroot.right%20%3D%20TreeNode(3)%0Aroot.left.left%20%3D%20TreeNode(4)%0Aroot.left.right%20%3D%20TreeNode(5)%0Aroot.left.left.left%20%3D%20TreeNode(6)%0A%0A%23%20Create%20an%20instance%20of%20the%20Solution%20class%0Asolution%20%3D%20Solution()%0A%0A%23%20Calculate%20the%20diameter%20of%20the%20binary%20tree%0Adiameter%20%3D%20solution.diameterOfBinaryTree(root)%0A%0Aprint(f%22The%20diameter%20of%20the%20binary%20tree%20is%3A%20%7Bdiameter%7D%22))
+
+#### 32. [increasing triplet subsequence](https://leetcode.com/problems/increasing-triplet-subsequence/?envType=study-plan-v2&envId=leetcode-75)
+
+```
+class Solution:
+    def increasingTriplet(self, nums):
+        first = second = float('inf')
+        for i in nums:
+            if i <= first:
+                first = i
+            elif i <= second:
+                second = i
+            else:
+                return True
+        
+        return False
+```
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20increasingTriplet(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20first%20%3D%20second%20%3D%20float('inf')%0A%20%20%20%20%20%20%20%20for%20i%20in%20nums%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20i%20%3C%3D%20first%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20first%20%3D%20i%0A%20%20%20%20%20%20%20%20%20%20%20%20elif%20i%20%3C%3D%20second%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20second%20%3D%20i%0A%20%20%20%20%20%20%20%20%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20True%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20False%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.increasingTriplet(%5B2%2C1%2C5%2C0%2C4%2C6%5D)))
+
+------
+### 4th Sept
+
+#### 33. [move zeroes](https://leetcode.com/problems/move-zeroes/description/?envType=study-plan-v2&envId=leetcode-75)
+```
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        non_zero = 0
+
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[non_zero], nums[i] = nums[i], nums[non_zero]
+                non_zero += 1
+```
+[visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20moveZeroes(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20%22%22%22%0A%20%20%20%20%20%20%20%20Do%20not%20return%20anything%2C%20modify%20nums%20in-place%20instead.%0A%20%20%20%20%20%20%20%20%22%22%22%0A%20%20%20%20%20%20%20%20non_zero%20%3D%200%0A%0A%20%20%20%20%20%20%20%20for%20i%20in%20range(len(nums))%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20nums%5Bi%5D%20!%3D%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20nums%5Bnon_zero%5D%2C%20nums%5Bi%5D%20%3D%20nums%5Bi%5D%2C%20nums%5Bnon_zero%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20non_zero%20%2B%3D%201%0A%0Asol%20%3D%20Solution()%0Anums%20%3D%20%5B0%2C1%2C0%2C3%2C12%5D%0Asol.moveZeroes(nums)%0Aprint(nums))
+
+#### 34. [swap nodes in pairs](https://leetcode.com/problems/swap-nodes-in-pairs/description/)
+
+```
+class Solution:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        dummy.next = head
+        prev = dummy
+
+        while prev.next and prev.next.next:
+            first = prev.next
+            second = first.next
+            
+            first.next = second.next
+            second.next = first
+            prev.next = second
+
+            prev = prev.next.next
+        
+        return dummy.next
+```
+[visualize](https://memlayout.com?code=%23%20Definition%20for%20singly-linked%20list.%0Aclass%20ListNode%3A%0A%20%20%20%20def%20__init__(self%2C%20val%3D0%2C%20next%3DNone)%3A%0A%20%20%20%20%20%20%20%20self.val%20%3D%20val%0A%20%20%20%20%20%20%20%20self.next%20%3D%20next%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20swapPairs(self%2C%20head%3A%20ListNode)%20-%3E%20ListNode%3A%0A%20%20%20%20%20%20%20%20dummy%20%3D%20ListNode()%0A%20%20%20%20%20%20%20%20dummy.next%20%3D%20head%0A%20%20%20%20%20%20%20%20prev%20%3D%20dummy%0A%0A%20%20%20%20%20%20%20%20while%20prev.next%20and%20prev.next.next%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20first%20%3D%20prev.next%0A%20%20%20%20%20%20%20%20%20%20%20%20second%20%3D%20first.next%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%23%20Swapping%20pairs%0A%20%20%20%20%20%20%20%20%20%20%20%20first.next%20%3D%20second.next%0A%20%20%20%20%20%20%20%20%20%20%20%20second.next%20%3D%20first%0A%20%20%20%20%20%20%20%20%20%20%20%20prev.next%20%3D%20second%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%23%20Move%20prev%20to%20the%20next%20pair%0A%20%20%20%20%20%20%20%20%20%20%20%20prev%20%3D%20prev.next.next%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20dummy.next%0A%0A%23%20Test%20case%0Adef%20test_swapPairs()%3A%0A%20%20%20%20%23%20Creating%20the%20linked%20list%3A%201%20-%3E%202%20-%3E%203%20-%3E%204%0A%20%20%20%20node1%20%3D%20ListNode(1)%0A%20%20%20%20node2%20%3D%20ListNode(2)%0A%20%20%20%20node3%20%3D%20ListNode(3)%0A%20%20%20%20node4%20%3D%20ListNode(4)%0A%0A%20%20%20%20node1.next%20%3D%20node2%0A%20%20%20%20node2.next%20%3D%20node3%0A%20%20%20%20node3.next%20%3D%20node4%0A%20%20%20%20%0A%20%20%20%20%23%20Initialize%20solution%0A%20%20%20%20solution%20%3D%20Solution()%0A%20%20%20%20%0A%20%20%20%20%23%20Apply%20the%20swapPairs%20function%0A%20%20%20%20new_head%20%3D%20solution.swapPairs(node1)%0A%20%20%20%20%0A%20%20%20%20%23%20Check%20the%20result%0A%20%20%20%20%23%20Expected%20linked%20list%20after%20swap%3A%202%20-%3E%201%20-%3E%204%20-%3E%203%0A%20%20%20%20assert%20new_head.val%20%3D%3D%202%2C%20f%22Expected%202%2C%20got%20%7Bnew_head.val%7D%22%0A%20%20%20%20assert%20new_head.next.val%20%3D%3D%201%2C%20f%22Expected%201%2C%20got%20%7Bnew_head.next.val%7D%22%0A%20%20%20%20assert%20new_head.next.next.val%20%3D%3D%204%2C%20f%22Expected%204%2C%20got%20%7Bnew_head.next.next.val%7D%22%0A%20%20%20%20assert%20new_head.next.next.next.val%20%3D%3D%203%2C%20f%22Expected%203%2C%20got%20%7Bnew_head.next.next.next.val%7D%22%0A%20%20%20%20assert%20new_head.next.next.next.next%20is%20None%2C%20%22Expected%20None%20at%20the%20end%20of%20the%20linked%20list%22%0A%0A%20%20%20%20print(%22Test%20passed!%22)%0A%0A%23%20Run%20the%20test%20case%0Atest_swapPairs()) | [explain](https://withmarble.io/learn?type=problem_breakdown&session_id=5124469d-48e8-46f4-9e8d-93d9f367aa01)
+
+-----
+### 5th Sept
+
+#### 35. [Determine if two strings are close](https://leetcode.com/problems/determine-if-two-strings-are-close/description/?envType=study-plan-v2&envId=leetcode-75)
+
+```
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        if set(word1) == set(word2):
+
+            word1_c = Counter(word1)
+            word2_c = Counter(word2)
+
+            return sorted(word1_c.values()) == sorted(word2_c.values())
+```
+[explain](https://withmarble.io/learn?type=problem_breakdown&session_id=650803e2-7bd9-4730-b2a7-abeb00b2fc51)
+
+#### 36. [Equal rows and cols](https://leetcode.com/problems/equal-row-and-column-pairs/description/)
+```
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        count = 0
+        l = 0
+        for i in range(len(grid)):
+            for j in range(len(grid)):
+                if all(grid[i][k] == grid[k][j] for k in range(len(grid))):
+                    count += 1
+        return count
+```
+[explain](https://withmarble.io/learn?type=problem_breakdown&session_id=a2477313-1efd-49a3-927d-d1cc6f8d9839)
+
+-----
+### 6th Sept
+
+#### 37. [Can place flowers](https://leetcode.com/problems/can-place-flowers/?envType=study-plan-v2&envId=leetcode-75)
+```
+class Solution:
+    def canPlaceFlowers(self, flowerbed, n):
+        if n == 0:
+            return True
+        count = 0
+        for i in range(1, len(flowerbed)-1):
+            if flowerbed[i-1] == flowerbed[i] == flowerbed[i+1] == 0:
+                flowerbed[i] = 1
+                count += 1
+                if count == n:
+                    return True
+        return False
+```
+[explain](https://withmarble.io/learn?type=problem_breakdown&session_id=17f82e29-f9de-4277-8a9c-53ebee4875ad)
+
+#### 38. [Reverse vowels in string](https://leetcode.com/problems/reverse-vowels-of-a-string/description/?envType=study-plan-v2&envId=leetcode-75)
+
+- two pointer 
+
+```
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+        s = list(s)
+        vowels = set('aeiouAEIOU')
+        l = 0
+        r = len(s)-1
+        while l < r:
+            if s[l] not in vowels:
+                l += 1
+            elif s[r] not in vowels:
+                r -= 1
+            else:
+                s[l], s[r] = s[r], s[l]
+                l += 1
+                r -= 1
+        print(s)
+        return ''.join(s)
+```
+[explain](https://withmarble.io/learn?type=problem_breakdown&session_id=3102059e-2c4c-4a6e-9c20-c3cd7136d96e)
+
+----
+### 7th Sept
+
+#### 39. [Max number of K pairs](https://leetcode.com/problems/max-number-of-k-sum-pairs/description/?envType=study-plan-v2&envId=leetcode-75)
+
+- hashmap
+
+```
+class Solution:
+    def maxOperations(self, nums, k):
+        count = Counter(nums)
+        operations = 0
+        
+        for num in count:
+            complement = k - num
+            if num == complement:
+                operations += count[num] // 2
+            elif complement in count:
+                operations += min(count[num], count[complement])
+                count[num] = 0
+                count[complement] = 0
+        
+        return operations
+```
+[explain](https://withmarble.io/learn?type=problem_breakdown&session_id=4e5d7ae5-9a09-47b0-b703-9b30760cf116)
+
+#### 40. [Maximum average subarray I](https://leetcode.com/problems/maximum-average-subarray-i/description/?envType=study-plan-v2&envId=leetcode-75)
+
+- sliding window
+
+```
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        curr_sum = sum(nums[:k])
+        max_sum = curr_sum
+
+        for i in range(1, len(nums) - k + 1):
+            curr_sum = curr_sum - nums[i-1] + nums[i+k-1]
+            max_sum = max(max_sum, curr_sum)
+
+        return max_sum / k
+```
+[explain](https://withmarble.io/learn?type=problem_breakdown&session_id=3c9584fa-5333-4191-93e2-2f8e46b9601e)
+
+-----
+
+### 8th Sept
+
+#### 41. [Max number of vowels in a substring of given length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/description/?envType=study-plan-v2&envId=leetcode-75)
+
+- sliding window
+
+```
+def maxVowels(self, s, k):
+        vowels = set('aeiou')
+        count = sum(1 for char in s[:k] if char in vowels)
+        # print('count', count)
+        max_count = count
+        
+        for i in range(k, len(s)):
+            if s[i-k] in vowels:
+                count -= 1
+            if s[i] in vowels:
+                count += 1
+            max_count = max(max_count, count)
+        
+        return max_count
+```
+[explain](https://withmarble.io/learn?type=problem_breakdown&session_id=5a2fc79e-ebdd-4228-863c-121d515dce60)
+
+#### 42. [max consecutive ones III](https://leetcode.com/problems/max-consecutive-ones-iii/description/?envType=study-plan-v2&envId=leetcode-75)
+
+- sliding window
+
+```
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        left = right = zeros_count = max_length = 0
+    
+        for right in range(len(nums)):
+            if nums[right] == 0:
+                zeros_count += 1
+            
+            while zeros_count > k:
+                if nums[left] == 0:
+                    zeros_count -= 1
+                left += 1
+            
+            max_length = max(max_length, right - left + 1)
+        
+        return max_length
+        
+```
+[explain](https://withmarble.io/learn?type=problem_breakdown&session_id=3d7018a7-9fa0-4050-bff4-8bb490c647f7)
+
+----
+
+### 9th Sept
+
+#### 43. [Longest Subarray of 1's After Deleting One Element](https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/?envType=study-plan-v2&envId=leetcode-75)
+
+- sliding window
+
+```
+class Solution:
+    def longestSubarray(self, nums):
+        n = len(nums)
+        left = zeros = ans = 0
+        
+        for right in range(n):
+            if nums[right] == 0:
+                zeros += 1
+            
+            while zeros > 1:
+                if nums[left] == 0:
+                    zeros -= 1
+                left += 1
+            
+            ans = max(ans, right - left + 1 - zeros)
+        
+        return ans - 1 if ans == n else ans
+```
+[explain](https://withmarble.io/learn?type=problem_breakdown&session_id=50d6302c-0b42-4281-87c6-634d9249a31d)
+
+#### 44. [find pivot index](https://leetcode.com/problems/find-pivot-index/description/?envType=study-plan-v2&envId=leetcode-75)
+
+```
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        
+        left_sum = 0
+        total_sum = sum(nums)
+        for r in range(len(nums)):
+            right_sum = total_sum - left_sum - nums[r]
+
+            if left_sum == right_sum:
+                return r
+            left_sum += nums[r]
+        
+        return -1
+
+```
+[explain](https://withmarble.io/learn?type=problem_breakdown&session_id=e8c54769-5138-4646-82a5-0ed72dfc8294)
+
+----
+### 10th sept
+
