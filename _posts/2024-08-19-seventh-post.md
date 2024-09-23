@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "2 Leetcodes a day! (running journal)"
+title:  "2 Leetcodes a day! (running journal) 🚩"
 date:   2024-08-19 12:54:15 +0800
 categories: jekyll update
 ---
@@ -1058,6 +1058,12 @@ class Solution:
 
 #### 36. [Equal rows and cols](https://leetcode.com/problems/equal-row-and-column-pairs/description/)
 ```
+#approach
+- Iterate through each row
+- For each row, compare it with every column
+- If a row and column are equal, increment a counter
+- Return the final count
+
 class Solution:
     def equalPairs(self, grid: List[List[int]]) -> int:
         count = 0
@@ -1075,6 +1081,12 @@ class Solution:
 
 #### 37. [Can place flowers](https://leetcode.com/problems/can-place-flowers/?envType=study-plan-v2&envId=leetcode-75)
 ```
+# approach
+- Iterate through the flowerbed
+- Check if a flower can be planted
+- If yes, plant and increment count
+- If count equals n, return true immediately
+
 class Solution:
     def canPlaceFlowers(self, flowerbed, n):
         if n == 0:
@@ -1123,6 +1135,12 @@ class Solution:
 - hashmap
 
 ```
+#approach
+- Count occurrences of each number in a dictionary
+- Iterate through the array once
+- For each number, check if its complement (k - num) exists
+- Update the count and increment the operations counter
+
 class Solution:
     def maxOperations(self, nums, k):
         count = Counter(nums)
