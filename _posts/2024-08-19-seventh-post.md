@@ -19,11 +19,11 @@ categories: jekyll update
     - Input: strs = ["act","pots","tops","cat","stop","hat"]
     - Output: [["hat"],["act", "cat"],["stop", "pots", "tops"]]
 
-```
+```python
 # approach: 
-- make an empty dictionary and start adding the keys as sorted anagrams. 
-- if two words are anagrams, it will be the same when they are sorted. 
-- return the values which will be groups of words which are anagrams
+# make an empty dictionary and start adding the keys as sorted anagrams. 
+# if two words are anagrams, it will be the same when they are sorted. 
+# return the values which will be groups of words which are anagrams
 
 class Solution:
     def groupAnagrams(self, strs):
@@ -37,6 +37,8 @@ class Solution:
         return table.values()
 ```
 
+<span style="color: red;">note: the trick here is to use a dictionary and sort the strings and make them keys. then just add anagrams to the existing keys </span>
+
 #### 2. Top K Elements in List
 
 - Given an integer array nums and an integer k, return the k most frequent elements within the array.
@@ -48,10 +50,10 @@ class Solution:
     - Input: nums = [1,2,2,3,3,3], k = 2
     - Output: [2,3]
 
-```
+```python
 #approach: 
-- make a dictionary count for each value in nums and sort it in descending order. 
-- return the top k keys 
+# make a dictionary count for each value in nums and sort it in descending order. 
+# return the top k keys 
 
 class Solution:
     def topKFrequent(self, nums, k):
@@ -66,6 +68,7 @@ class Solution:
         return res
 
 ```
+<span style="color: red;">note: use counter here and sort it. then just return first k values </span>
 
 -------------
 ### 20th Aug
@@ -83,11 +86,11 @@ O(n) time without using the division operation?
     - Input: nums = [1,2,4,6]
     - Output: [48,24,12,8]
 
-```
+```python
 # approach:
-- keep two pointers l and r. 
-- iterate the list with l and r. 
-- keep the product variable and times with each element using r
+# keep two pointers l and r. 
+# iterate the list with l and r. 
+# keep the product variable and times with each element using r
 
 class Solution:
     def productExceptSelf(self, nums):
@@ -104,6 +107,7 @@ class Solution:
             l += 1
         return res
 ```
+<span style="color: red;">note: Use 2 pointers to iterate over array and calculate the product except when l = r </span>
 
 #### 4. Longest Consecutive Sequence
 - Given an array of integers nums, return the length of the longest consecutive sequence of elements.
@@ -116,12 +120,12 @@ class Solution:
     - Output: 4
     (Explanation: The longest consecutive sequence is [2, 3, 4, 5].)
 
-```
+```python
 #approach: 
-- make a set of nums list. iterate over the set. 
-- if previous number does not exist in set then the longest will start from there. 
-- and while there is i + length element present in the set, the length will increase by 1. 
-- then longest will simply be the max of length and longest variable. 
+# make a set of nums list. iterate over the set. 
+# if previous number does not exist in set then the longest will start from there. 
+# and while there is i + length element present in the set, the length will increase by 1. 
+# then longest will simply be the max of length and longest variable. 
 
 class Solution:
     def longestConsecutive(self, nums):
@@ -140,6 +144,8 @@ class Solution:
 
 [visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20longestConsecutive(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20numsSet%20%3D%20set(nums)%0A%20%20%20%20%20%20%20%20longest%20%3D%200%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20for%20i%20in%20numsSet%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20(i-1)%20not%20in%20numsSet%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20length%20%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20while%20(i%20%2B%20length)%20in%20numsSet%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20length%20%2B%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20longest%20%3D%20max(length%2C%20longest)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20longest%0A%0Asol%20%3D%20Solution()%0Aprint(sol.longestConsecutive(%5B2%2C20%2C4%2C10%2C3%2C4%2C5%5D)))
 
+<span style="color: red;">note: Use a set to remove dups. then just iterate over nums to see if conseq values exist and increment length. keep track of the longest so far</span>
+
 -----
 ### 21st Aug 
 *“Continuous improvement is better than delayed perfection.”*
@@ -156,11 +162,11 @@ class Solution:
     - Input: numbers = [1,2,3,4], target = 3
     - Output: [1,2]
 
-```
+```python
 # approach:
-- usa two pointer approach where first iteration is through the array and second iteration (r) will be in for loop
-- then check if element l + element r == target, if so append to new list
-- return the new list
+# usa two pointer approach where first iteration is through the array and second iteration (r) will be in for loop
+# then check if element l + element r == target, if so append to new list
+# return the new list
 
 class Solution:
     def twoSum(self, nums, target):
@@ -175,6 +181,7 @@ class Solution:
         
         return res
 ```
+<span style="color: red;">note: iterate with two pointers. check if l + r is target and append to new list</span>
 
 #### 6. Max water container
 
@@ -185,12 +192,12 @@ class Solution:
     - Input: height = [1,7,2,5,4,7,3,6]
     - Output: 36
 
-```
+```python
 # approach:
-- two points with l at starting and r at end. while l < r
-- calculate the max area which is length * breadth
-- length will be min of height[l] and height[r]. breadth will be (r - l)
-- if l < r then increase l else decrease r
+# two points with l at starting and r at end. while l < r
+# calculate the max area which is length * breadth
+# length will be min of height[l] and height[r]. breadth will be (r - l)
+# if l < r then increase l else decrease r
 
 class Solution:
     def maxArea(self, heights):
@@ -210,6 +217,8 @@ class Solution:
 
 [visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20maxArea(self%2C%20heights)%3A%0A%20%20%20%20%20%20%20%20l%20%3D%200%0A%20%20%20%20%20%20%20%20r%20%3D%20len(heights)%20-%201%0A%20%20%20%20%20%20%20%20res%20%3D%200%0A%0A%20%20%20%20%20%20%20%20while%20l%20%3C%20r%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20res%20%3D%20max(res%2C%20min(heights%5Bl%5D%2C%20heights%5Br%5D)%20*%20(r%20-%20l))%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20heights%5Bl%5D%20%3C%20heights%5Br%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20l%20%2B%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20elif%20heights%5Br%5D%20%3C%3D%20heights%5Bl%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20r%20-%3D%201%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20res%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.maxArea(%5B1%2C7%2C2%2C5%2C4%2C7%2C3%2C6%5D)))
 
+<span style="color: red;">note: need to calculate the area of rectangle which is l * b. that is what res is for. two pointer approach but l is starting and r is end </span>
+
 ------
 ### 22nd Aug 
 *"You’ll never change your life until you change something you do daily."*
@@ -223,12 +232,12 @@ class Solution:
     - Output: true
     - Explanation: After considering only alphanumerical characters we have "wasitacaroracatisaw", which is a palindrome.
 
-```
+```python
 #Approach: 
-- iterate over the string to see if the characters are alphabets 
-- check if each character is a number or an alphabet
-- if yes, then lower it and add to empty list with lower method
-- Finally check if the list and reverse of the list is equal
+# iterate over the string to see if the characters are alphabets 
+# check if each character is a number or an alphabet
+# if yes, then lower it and add to empty list with lower method
+# Finally check if the list and reverse of the list is equal
 
 class Solution:
     def isPalindrome(self, s):
@@ -242,6 +251,7 @@ class Solution:
     
         return False
 ```
+<span style="color: red;">note: need to do check if character in string is legit and lower. append to new list and compare reverse with original. palindrome is reverse = original </span>
 
 #### 8. Buy and sell crypto
 - You are given an integer array prices where prices[i] is the price of NeetCoin on the ith day.
@@ -252,12 +262,12 @@ class Solution:
     - Input: prices = [10,1,5,6,7,1]
     - Output: 6 (Explanation: Buy prices[1] and sell prices[4], profit = 7 - 1 = 6.)
 
-```
-approach: 
-- have a variable x which is float('inf')
-- iterate over the list and calulate the minimum of x with x and i 
-- if i > x then calculate profit as the max of profit and i 
-- 
+```python
+# approach: 
+# have a variable x which is float('inf')
+# iterate over the list and calulate the minimum of x with x and i 
+# if i > x then calculate profit as the max of profit and i 
+# 
 
 class Solution:
     def maxProfit(self, prices):
@@ -270,6 +280,8 @@ class Solution:
         
         return profit
 ```
+<span style="color: red;">note: need to buy at lowest and sell at highest. keep track of lowest price and calculate max profit when a high price is encountered </span>
+
 ----
 ### 23rd Aug 
 
@@ -281,12 +293,12 @@ class Solution:
     - Input: s = "zxyzxyz"
     - Output: 3 (Explanation: The string "xyz" is the longest without duplicate characters.)
 
-```
-approach:
-- use a set and a l pointer
-- iterate over string and check if char is in set. if it is then remove lth character 
-- add ith char to set
-- calculate res as max of res and window which will be i - l + 1
+```python
+# approach:
+# use a set and a l pointer
+# iterate over string and check if char is in set. if it is then remove lth character 
+# add ith char to set
+# calculate res as max of res and window which will be i - l + 1
 
 
 
@@ -306,6 +318,7 @@ class Solution:
         return res
 
 ```
+<span style="color: red;">note: use a set. add new character to set, when a duplicate is encountered, then remove previous char. use two pointers. keep track of the max window </span>
 
 #### 10. Longest repeating substring with replacement
 - You are given a string s consisting of only uppercase english characters and an integer k. You can choose up to k characters of the string and replace them with any other uppercase English character.
@@ -315,13 +328,13 @@ class Solution:
     - Input: s = "XYYX", k = 2
     - Output: 4 (Explanation: Either replace the 'X's with 'Y's, or replace the 'Y's with 'X's.)
 
-```
-approach: 
-- use a dictionary, l pointer and max pointer 
-- iterate over s to count the number of each character
-- calculate max as max of max pointer and char s
-- if the window size - max pointer > k then decrease the count of lth char in dictionary
-- return window size
+```python
+#approach: 
+# use a dictionary, l pointer and max pointer 
+# iterate over s to count the number of each character
+# calculate max as max of max pointer and char s
+# if the window size - max pointer > k then decrease the count of lth char in dictionary
+# return window size
 
 class Solution:
     def characterReplacement(self, s, k):
@@ -341,6 +354,8 @@ class Solution:
 
 [visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20characterReplacement(self%2C%20s%2C%20k)%3A%0A%20%20%20%20%20%20%20%20count%20%3D%20%7B%7D%0A%20%20%20%20%20%20%20%20l%20%3D%200%0A%20%20%20%20%20%20%20%20maxD%20%3D%200%0A%20%20%20%20%20%20%20%20for%20i%20in%20range(len(s))%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20count%5Bs%5Bi%5D%5D%20%3D%201%20%2B%20count.get(s%5Bi%5D%2C%200)%0A%20%20%20%20%20%20%20%20%20%20%20%20maxD%20%3D%20max(maxD%2C%20count%5Bs%5Bi%5D%5D)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20if%20(i%20-%20l%20%2B%201)%20-%20maxD%20%3E%20k%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20count%5Bs%5Bl%5D%5D%20-%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20l%20%2B%3D%201%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20(i%20-%20l%20%2B%201)%0A%0Asol%20%3D%20Solution()%0Aprint(sol.characterReplacement(s%20%3D%20'XYYX'%2C%20k%20%3D%202)))
 
+<span style="color: red;">note: use a dictionary to count character occurance. calculate max occurance. see if the window size - max occurace > k, means we need to decrease occurance. use two pointers </span>
+
 -----
 ### 24th Aug
 
@@ -353,11 +368,11 @@ class Solution:
     - Input: s1 = "abc", s2 = "lecabee"
     - Output: true (Explanation: The substring "cab" is a permutation of "abc" and is present in "lecabee".)
 
-```
+```python
 # approach
-- create a hashmap with the count of every character in the string s1
-- slide a window over string s2 and decrease the counter for chars occured in the window
-- if all counters in hashmap get to zero, means we encountered the permutation
+# create a hashmap with the count of every character in the string s1
+# slide a window over string s2 and decrease the counter for chars occured in the window
+# if all counters in hashmap get to zero, means we encountered the permutation
 
 class Solution:
     def checkInclusion(self, s1, s2):
@@ -377,6 +392,7 @@ class Solution:
 
 [visualize](https://memlayout.com?code=from%20collections%20import%20Counter%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20checkInclusion(self%2C%20s1%2C%20s2)%3A%0A%20%20%20%20%20%20%20%20cntr%2C%20w%20%3D%20Counter(s1)%2C%20len(s1)%0A%0A%20%20%20%20%20%20%20%20for%20i%20in%20range(len(s2))%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20s2%5Bi%5D%20in%20cntr%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cntr%5Bs2%5Bi%5D%5D%20-%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20i%20%3E%3D%20w%20and%20s2%5Bi-w%5D%20in%20cntr%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20cntr%5Bs2%5Bi-w%5D%5D%20%2B%3D%201%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20all(%5Bcntr%5Bi%5D%20%3D%3D%200%20for%20i%20in%20cntr%5D)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20True%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20False%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.checkInclusion(s1%20%3D%20'abc'%2C%20s2%20%3D%20'lecabee')))
 
+<span style="color: red;">note: better understand</span>
 
 #### 12. Minimum Stack
 - Design a stack class that supports the push, pop, top, and getMin operations.
@@ -401,13 +417,13 @@ class Solution:
         - minStack.top();    // return 2
         - minStack.getMin(); // return 1
 
-```
+```python
 #approach: 
-- inititate two lists, one for stack and another for minstack
-- for push, append to stack first, then calculate the min, then append to minstack
-- for pop, just pop from both
-- for top, just return last element from stack
-- for getMin, just return last element from minStack
+# inititate two lists, one for stack and another for minstack
+# for push, append to stack first, then calculate the min, then append to minstack
+# for pop, just pop from both
+# for top, just return last element from stack
+# for getMin, just return last element from minStack
 
 class MinStack:
     def __init__(self):
@@ -430,6 +446,8 @@ class MinStack:
         return self.minStack[-1]
 
 ```
+<span style="color: red;">note: start with two stacks - one to keep min values and other is normal. when pushing calculate the min and then append to minstack</span>
+
 ------
 ### 25th Aug
 
@@ -445,11 +463,11 @@ class MinStack:
     - Input: tokens = ["1","2","+","3","*","4","-"]
     - Output: 5 (Explanation: ((1 + 2) * 3) - 4 = 5)
 
-```
+```python
 #approach: 
-- have an empty stack
-- make if conditions for all the operational character and append to stack accordingly
-- pop the last two element from the stack first and then append a new element
+# have an empty stack
+# make if conditions for all the operational character and append to stack accordingly
+# pop the last two element from the stack first and then append a new element
 
 class Solution:
     def evalRPN(self, tokens):
@@ -471,6 +489,7 @@ class Solution:
         
         return stack[0]
 ```
+<span style="color: red;">note: boring question</span>
 
 #### 14. Generate parenthesis
 - You are given an integer n. Return all well-formed parentheses strings that you can generate with n pairs of parentheses.
@@ -484,10 +503,10 @@ class Solution:
     - Output: ["((()))","(()())","(())()","()(())","()()()"]
 
 
-```
+```python
 #approach:
-- use backtracking with two pointers
-- 
+# use backtracking with two pointers
+ 
 
 class Solution:
     def generateParenthesis(self, n):
@@ -513,6 +532,8 @@ class Solution:
 
 [visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20generateParenthesis(self%2C%20n)%3A%0A%20%20%20%20%20%20%20%20stack%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20def%20backtrack(openN%2C%20closeN)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20openN%20%3D%3D%20closeN%20%3D%3D%20n%3A%20%23%20base%20case%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res.append(''.join(stack))%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20openN%20%3C%20n%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stack.append(%22(%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20backtrack(openN%2B1%2C%20closeN)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stack.pop()%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20closeN%20%3C%20openN%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stack.append(%22)%22)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20backtrack(openN%2C%20closeN%2B1)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stack.pop()%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20backtrack(0%2C0)%0A%20%20%20%20%20%20%20%20return%20res%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.generateParenthesis(2)))
 
+<span style="color: red;">note: use backtracking. need to undertand more</span>
+
 ----
 ### 26th Aug
 
@@ -524,15 +545,15 @@ class Solution:
     - Input: temperatures = [30,38,30,36,35,40,28]
     - Output: [1,4,1,2,1,0,0]
 
-```
+```python
 #approach:
-- create an array of zeroes which will be equal to the len of temp
-- create an empty stack
-- iterate with index and value over temp list
-- check if current value of element in list is greater than the last value in stack
-- if so, then pop value and index from stack
-- change the element in array with zeroes for that particular index
-- append value and index in stack
+# create an array of zeroes which will be equal to the len of temp
+# create an empty stack
+# iterate with index and value over temp list
+# check if current value of element in list is greater than the last value in stack
+# if so, then pop value and index from stack
+# change the element in array with zeroes for that particular index
+# append value and index in stack
 
 
 class Solution:
@@ -551,6 +572,8 @@ class Solution:
 
 [visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20dailyTemperatures(self%2C%20temp)%3A%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B0%5D%20*%20len(temp)%0A%20%20%20%20%20%20%20%20stack%20%3D%20%5B%5D%0A%0A%20%20%20%20%20%20%20%20for%20i%2C%20v%20in%20enumerate(temp)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20while%20stack%20and%20v%20%3E%20stack%5B-1%5D%5B0%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stackT%2C%20stackInd%20%3D%20stack.pop()%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res%5BstackInd%5D%20%3D%20i%20-%20stackInd%0A%20%20%20%20%20%20%20%20%20%20%20%20stack.append((v%2Ci))%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20res%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.dailyTemperatures(%5B30%2C38%2C30%2C36%2C35%2C40%2C28%5D)))
 
+<span style="color: red;">note: your stack will store the index and value. your res will only store the difference in index. good question </span>
+
 #### 16. Binary search
 - You are given an array of distinct integers nums, sorted in ascending order, and an integer target.
 - Implement a function to search for target within nums. If it exists, then return its index, otherwise, return -1.
@@ -560,14 +583,14 @@ class Solution:
     - Input: nums = [-1,0,2,4,6,8], target = 4
     - Output: 3
 
-```
+```python
 #approach:
-- initiate a left and right pointer at 0 and end of list respectively
-- check while l < r
-- calculate middle element 
-- check if middle < target, which means we can bring out l pointer forward upto middle
-- check if middle > target, which means we can bring down r pointer upto middle
-- else we return middle which means the target is found 
+# initiate a left and right pointer at 0 and end of list respectively
+# check while l < r
+# calculate middle element 
+# check if middle < target, which means we can bring out l pointer forward upto middle
+# check if middle > target, which means we can bring down r pointer upto middle
+# else we return middle which means the target is found 
 
 class Solution:
     def search(self, nums, target):
@@ -583,9 +606,8 @@ class Solution:
                 return m
         
         return -1
-
-
 ```
+<span style="color: red;">note: very fundamental. </span>
 
 ----
 ### 27th Aug
@@ -594,12 +616,12 @@ class Solution:
 
 [problem](https://leetcode.com/problems/balanced-binary-tree/description/)
 
-```
+```python
 # approach:
-- do it recursively with DFS
-- return a boolean value and the height
-- calculate the balance as the diff between left and right subtree should be less than 1
-- balance is only going to be true if left and right subtrees are balanced
+# do it recursively with DFS
+# return a boolean value and the height
+# calculate the balance as the diff between left and right subtree should be less than 1
+# balance is only going to be true if left and right subtrees are balanced
 
 class Solution:
     def isBalanced(self, root):
@@ -624,10 +646,10 @@ class Solution:
 
 [problem](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/solutions/)
 
-```
-- start with the root as it is always the common ancestor
-- left subtree is always going to be less than parent and right subtree is going to be greater than parent
-- time complexity will be height of the tree which is usually log(n)
+```python
+# start with the root as it is always the common ancestor
+# left subtree is always going to be less than parent and right subtree is going to be greater than parent
+# time complexity will be height of the tree which is usually log(n)
 
 class Solution:
     def lowestCommonAncestor(self, root):
@@ -656,7 +678,7 @@ peek is technically getting the last element
 
 [problem](https://leetcode.com/problems/implement-queue-using-stacks/solutions/)
 
-```
+```python
 class Solution:
     def __init__(self):
         self.s1 = []
@@ -687,8 +709,8 @@ class Solution:
 
 [problem](https://leetcode.com/problems/climbing-stairs/solutions/)
 
-```
-- two variables shifting n - 1 times. already accounting for the first step during initialization
+```python
+# two variables shifting n - 1 times. already accounting for the first step during initialization
 
 class Solution:
     def climbStairs(self, n):
@@ -714,7 +736,7 @@ For odd length string, we need a pair of matching pairs and a single character w
 for even length, we need all pairs 
 need to have a hasmap to count the number of chars in string.
 
-```
+```python
 class Solution:
     def longestPalindrom(self, s):
         count = defaultdict(int)
@@ -741,7 +763,7 @@ class Solution:
 
 Have a prev pointer which will be none and then iterate over LL starting from head. point each next pointer to prev node
 
-```
+```python
 class Solution:
     def reverseList(self, head):
         prev = None
@@ -756,6 +778,8 @@ class Solution:
 
 [visualize](https://memlayout.com?code=class%20ListNode%3A%0A%20%20%20%20def%20__init__(self%2C%20val%3D0%2C%20next%3DNone)%3A%0A%20%20%20%20%20%20%20%20self.val%20%3D%20val%0A%20%20%20%20%20%20%20%20self.next%20%3D%20next%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20reverseList(self%2C%20head)%3A%0A%20%20%20%20%20%20%20%20prev%20%3D%20None%0A%20%20%20%20%20%20%20%20while%20head%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20tmp%20%3D%20head.next%0A%20%20%20%20%20%20%20%20%20%20%20%20head.next%20%3D%20prev%0A%20%20%20%20%20%20%20%20%20%20%20%20prev%20%3D%20head%0A%20%20%20%20%20%20%20%20%20%20%20%20head%20%3D%20tmp%0A%20%20%20%20%20%20%20%20return%20prev%0A%0Adef%20test_reverse_list()%3A%0A%20%20%20%20head%20%3D%20ListNode(1)%0A%20%20%20%20head.next%20%3D%20ListNode(2)%0A%20%20%20%20head.next.next%20%3D%20ListNode(3)%0A%20%20%20%20head.next.next.next%20%3D%20ListNode(4)%0A%20%20%20%20head.next.next.next.next%20%3D%20ListNode(5)%0A%0A%20%20%20%20solution%20%3D%20Solution()%0A%20%20%20%20reversed_head%20%3D%20solution.reverseList(head)%0A%20%20%20%20%0A%20%20%20%20return%20reversed_head%0A%0Aprint(test_reverse_list()))
 
+<span style="color: red;">note: memorize this</span>
+
 ----
 ### 30th Aug
 
@@ -763,7 +787,7 @@ class Solution:
 
 Recursively iterate over the tree 
 
-```
+```python
 class Solution:
     def maxDepth(self, root):
         if not root:
@@ -771,12 +795,14 @@ class Solution:
         return 1 + (self.maxDepth(root.left), self.maxDepth(root.right))
 ```
 
+<span style="color: red;">note: easy recursive implementation on left and right subtrees and finding max. don't forget base case in recursion </span>
+
 #### 24. [middle of linked list](https://leetcode.com/problems/middle-of-the-linked-list/description/)
 
 Have two pointers slow and fast. iterate over fast until the end of the list which slow incrementing as well. when fast will reach the end
 slow will reach the middle. 
 
-```
+```python
 class Solution:
     def middleNode(self, head):
         slow = head
@@ -787,6 +813,9 @@ class Solution:
         
         return slow
 ```
+
+<span style="color: red;">note: slow and fast pointers. slow will be in middle when fast reach the end.</span>
+
 ----
 ### 31st Aug
 
@@ -796,7 +825,7 @@ can compute every single subarray
 maintain a current sum variable which will add the element in the array
 another variable which will maintain the max subarray. it will be initialized to the first array element
 
-```
+```python
 class Solution:
     def maxSubArray(self, nums):
         maxSub = nums[0]
@@ -811,6 +840,8 @@ class Solution:
 ```
 [visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20maxSubArray(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20maxSub%20%3D%20nums%5B0%5D%0A%20%20%20%20%20%20%20%20curSum%20%3D%200%0A%20%20%20%20%20%20%20%20for%20i%20in%20nums%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20curSum%20%3C%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20curSum%20%3D%200%0A%20%20%20%20%20%20%20%20%20%20%20%20curSum%20%2B%3D%20i%0A%20%20%20%20%20%20%20%20%20%20%20%20maxSub%20%3D%20max(maxSub%2C%20curSum)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20return%20maxSub%0A%20%20%20%20%20%20%20%20%0Asol%20%3D%20Solution()%0Aprint(sol.maxSubArray(%5B-2%2C1%2C-3%2C4%2C-1%2C2%2C1%2C-5%2C4%5D)))
 
+<span style="color: red;">note: easy keep a maxsub total and cursum. simply add elements to cursum and calculate max</span>
+
 
 #### 26. [insert intervals](https://leetcode.com/problems/insert-interval/solutions/)
 
@@ -819,7 +850,7 @@ if there is then find the max
 also need to sort the interval list by start time first and set the prev to the start time of first interval
 in the loop, append prev to new list (merged)
 
-```
+```python
 class Solution:
     def insert(self, intervals, newIntervals):
         intervals.append(newIntervals)
@@ -850,7 +881,7 @@ start with a queue with root in it. iterate over the queue to pop the first elem
 then append left and right nodes of the tree to the queue
 
 
-```
+```python
 class Solution:
     def levelOrder(self, root):
         q = [root]
@@ -871,13 +902,15 @@ class Solution:
 ```
 [visualize](https://memlayout.com?code=%23%20Definition%20for%20a%20binary%20tree%20node.%0Aclass%20TreeNode%3A%0A%20%20%20%20def%20__init__(self%2C%20val%3D0%2C%20left%3DNone%2C%20right%3DNone)%3A%0A%20%20%20%20%20%20%20%20self.val%20%3D%20val%0A%20%20%20%20%20%20%20%20self.left%20%3D%20left%0A%20%20%20%20%20%20%20%20self.right%20%3D%20right%0A%0Aclass%20Solution%3A%0A%20%20%20%20def%20levelOrder(self%2C%20root)%3A%0A%20%20%20%20%20%20%20%20q%20%3D%20%5Broot%5D%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20while%20q%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20level%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20for%20i%20in%20range(len(q))%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20node%20%3D%20q.pop(0)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20node%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20level.append(node.val)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20q.append(node.left)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20q.append(node.right)%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20level%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res.append(level)%0A%0A%20%20%20%20%20%20%20%20return%20res%0A%0Adef%20test_level_order()%3A%0A%20%20%20%20%23%20Create%20a%20binary%20tree%0A%20%20%20%20%23%20%20%20%20%20%203%0A%20%20%20%20%23%20%20%20%20%2F%20%20%20%5C%0A%20%20%20%20%23%20%20%209%20%20%20%2020%0A%20%20%20%20%23%20%20%20%20%20%20%20%2F%20%20%5C%0A%20%20%20%20%23%20%20%20%20%20%2015%20%20%207%0A%20%20%20%20root%20%3D%20TreeNode(3)%0A%20%20%20%20root.left%20%3D%20TreeNode(9)%0A%20%20%20%20root.right%20%3D%20TreeNode(20)%0A%20%20%20%20root.right.left%20%3D%20TreeNode(15)%0A%20%20%20%20root.right.right%20%3D%20TreeNode(7)%0A%0A%20%20%20%20%23%20Create%20an%20instance%20of%20Solution%0A%20%20%20%20solution%20%3D%20Solution()%0A%0A%20%20%20%20%23%20Run%20the%20level%20order%20traversal%0A%20%20%20%20result%20%3D%20solution.levelOrder(root)%0A%0A%20%20%20%20%23%20Expected%20output%0A%20%20%20%20expected%20%3D%20%5B%5B3%5D%2C%20%5B9%2C%2020%5D%2C%20%5B15%2C%207%5D%5D%0A%0A%20%20%20%20%23%20Check%20if%20the%20result%20matches%20the%20expected%20output%0A%20%20%20%20assert%20result%20%3D%3D%20expected%2C%20f%22Expected%20%7Bexpected%7D%2C%20but%20got%20%7Bresult%7D%22%0A%0A%20%20%20%20print(%22Test%20case%20passed%20successfully!%22)%0A%0A%20%20%20%20%23%20Test%20with%20an%20empty%20tree%0A%20%20%20%20assert%20solution.levelOrder(None)%20%3D%3D%20%5B%5D%2C%20%22Empty%20tree%20should%20return%20an%20empty%20list%22%0A%0A%20%20%20%20print(%22Empty%20tree%20test%20case%20passed%20successfully!%22)%0A%0A%23%20Run%20the%20test%0Atest_level_order())
 
+<span style="color: red;">note: memorize this </span>
+
 
 #### 28. [combination sum](https://leetcode.com/problems/combination-sum/description/)
 
 each candidate, we're exploring two possibilities: either we include it in our combination (potentially multiple times) or we don't. 
 This creates a decision tree that the DFS traverses, building up combinations and backtracking when necessary.
 
-```
+```python
 class Solution:
     def combinationSum(self, candidates, target):
         res = []
@@ -902,6 +935,8 @@ class Solution:
 
 [visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20combinationSum(self%2C%20candidates%2C%20target)%3A%0A%20%20%20%20%20%20%20%20res%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20def%20dfs(i%2C%20lst%2C%20total)%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20total%20%3D%3D%20target%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20res.append(lst.copy())%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20i%20%3E%3D%20len(candidates)%20or%20total%20%3E%20target%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%23%20Include%20the%20current%20candidate%3A%20We%20append%20it%20to%20lst%2C%20update%20the%20total%2C%20and%20recurse%0A%20%20%20%20%20%20%20%20%20%20%20%20lst.append(candidates%5Bi%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20dfs(i%2C%20lst%2C%20total%2Bcandidates%5Bi%5D)%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%23%20Exclude%20the%20current%20candidate%3A%20We%20move%20to%20the%20next%20index%20without%20changing%20lst%20or%20total%0A%20%20%20%20%20%20%20%20%20%20%20%20lst.pop()%0A%20%20%20%20%20%20%20%20%20%20%20%20dfs(i%2B1%2C%20lst%2C%20total)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20dfs(0%2C%20%5B%5D%2C%200)%0A%20%20%20%20%20%20%20%20return%20res%0A%0Asol%20%3D%20Solution()%0Aprint(sol.combinationSum(candidates%20%3D%20%5B2%2C3%2C6%2C7%5D%2C%20target%20%3D%207)))
 
+<span style="color: red;">note: in the backtracking function, use 3 variables - i, empty list and total sum so far. then cover including and excluding current candidate possibilities. would be easier to memo</span>
+
 ----
 ### 2nd Sept
 
@@ -910,7 +945,7 @@ class Solution:
  swapping elements to generate all possible arrangements.
  time complexity of this algorithm is O(n!)
 
-```
+```python
 class Solution:
     def permute(self, nums):
         res = []
@@ -935,7 +970,7 @@ class Solution:
 
 making a binary choice (include/exclude) for each element and exploring all paths in the resulting decision tree, we naturally generate all possible subsets of the input list.
 
-```
+```python
 class Solution:
     def subsets(self, nums):
         res = []
@@ -962,7 +997,7 @@ class Solution:
 
 #### 31. [diameter of binary tree](https://leetcode.com/problems/diameter-of-binary-tree/description/)
 
-```
+```python
 class Solution:
     def diameterofBinaryTree(self, root):
         res = [0]
@@ -981,7 +1016,7 @@ class Solution:
 
 #### 32. [increasing triplet subsequence](https://leetcode.com/problems/increasing-triplet-subsequence/?envType=study-plan-v2&envId=leetcode-75)
 
-```
+```python
 class Solution:
     def increasingTriplet(self, nums):
         first = second = float('inf')
@@ -1001,7 +1036,8 @@ class Solution:
 ### 4th Sept
 
 #### 33. [move zeroes](https://leetcode.com/problems/move-zeroes/description/?envType=study-plan-v2&envId=leetcode-75)
-```
+
+```python
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
         """
@@ -1016,9 +1052,11 @@ class Solution:
 ```
 [visualize](https://memlayout.com?code=class%20Solution%3A%0A%20%20%20%20def%20moveZeroes(self%2C%20nums)%3A%0A%20%20%20%20%20%20%20%20%22%22%22%0A%20%20%20%20%20%20%20%20Do%20not%20return%20anything%2C%20modify%20nums%20in-place%20instead.%0A%20%20%20%20%20%20%20%20%22%22%22%0A%20%20%20%20%20%20%20%20non_zero%20%3D%200%0A%0A%20%20%20%20%20%20%20%20for%20i%20in%20range(len(nums))%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20nums%5Bi%5D%20!%3D%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20nums%5Bnon_zero%5D%2C%20nums%5Bi%5D%20%3D%20nums%5Bi%5D%2C%20nums%5Bnon_zero%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20non_zero%20%2B%3D%201%0A%0Asol%20%3D%20Solution()%0Anums%20%3D%20%5B0%2C1%2C0%2C3%2C12%5D%0Asol.moveZeroes(nums)%0Aprint(nums))
 
+<span style="color: red;">note: keep track of zero, iterate over nums to check non zero elements and swap with zero element to push zeroes ar the end. it should be in place </span>
+
 #### 34. [swap nodes in pairs](https://leetcode.com/problems/swap-nodes-in-pairs/description/)
 
-```
+```python
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode()
@@ -1044,7 +1082,7 @@ class Solution:
 
 #### 35. [Determine if two strings are close](https://leetcode.com/problems/determine-if-two-strings-are-close/description/?envType=study-plan-v2&envId=leetcode-75)
 
-```
+```python
 class Solution:
     def closeStrings(self, word1: str, word2: str) -> bool:
         if set(word1) == set(word2):
@@ -1056,13 +1094,16 @@ class Solution:
 ```
 [explain](https://withmarble.io/learn?type=problem_breakdown&session_id=650803e2-7bd9-4730-b2a7-abeb00b2fc51)
 
+<span style="color: red;">note: use counter to compare two strings and sort them values </span>
+
 #### 36. [Equal rows and cols](https://leetcode.com/problems/equal-row-and-column-pairs/description/)
-```
+
+```python
 #approach
-- Iterate through each row
-- For each row, compare it with every column
-- If a row and column are equal, increment a counter
-- Return the final count
+# Iterate through each row
+# For each row, compare it with every column
+# If a row and column are equal, increment a counter
+# Return the final count
 
 class Solution:
     def equalPairs(self, grid: List[List[int]]) -> int:
@@ -1080,12 +1121,13 @@ class Solution:
 ### 6th Sept
 
 #### 37. [Can place flowers](https://leetcode.com/problems/can-place-flowers/?envType=study-plan-v2&envId=leetcode-75)
-```
+
+```python
 # approach
-- Iterate through the flowerbed
-- Check if a flower can be planted
-- If yes, plant and increment count
-- If count equals n, return true immediately
+# Iterate through the flowerbed
+# Check if a flower can be planted
+# If yes, plant and increment count
+# If count equals n, return true immediately
 
 class Solution:
     def canPlaceFlowers(self, flowerbed, n):
@@ -1102,11 +1144,13 @@ class Solution:
 ```
 [explain](https://withmarble.io/learn?type=problem_breakdown&session_id=17f82e29-f9de-4277-8a9c-53ebee4875ad)
 
+<span style="color: red;">note: just check if adjacent values are 0 in flowerbed. if so that is good and increment count </span>
+
 #### 38. [Reverse vowels in string](https://leetcode.com/problems/reverse-vowels-of-a-string/description/?envType=study-plan-v2&envId=leetcode-75)
 
 - two pointer 
 
-```
+```python
 class Solution:
     def reverseVowels(self, s: str) -> str:
         s = list(s)
@@ -1134,12 +1178,12 @@ class Solution:
 
 - hashmap
 
-```
+```python
 #approach
-- Count occurrences of each number in a dictionary
-- Iterate through the array once
-- For each number, check if its complement (k - num) exists
-- Update the count and increment the operations counter
+# Count occurrences of each number in a dictionary
+# Iterate through the array once
+# For each number, check if its complement (k - num) exists
+# Update the count and increment the operations counter
 
 class Solution:
     def maxOperations(self, nums, k):
@@ -1163,7 +1207,7 @@ class Solution:
 
 - sliding window
 
-```
+```python
 class Solution:
     def findMaxAverage(self, nums: List[int], k: int) -> float:
         curr_sum = sum(nums[:k])
@@ -1185,7 +1229,8 @@ class Solution:
 
 - sliding window
 
-```
+
+```python
 def maxVowels(self, s, k):
         vowels = set('aeiou')
         count = sum(1 for char in s[:k] if char in vowels)
@@ -1207,7 +1252,7 @@ def maxVowels(self, s, k):
 
 - sliding window
 
-```
+```python
 class Solution:
     def longestOnes(self, nums: List[int], k: int) -> int:
         left = right = zeros_count = max_length = 0
@@ -1236,17 +1281,17 @@ class Solution:
 
 - sliding window
 
-```
+```python
 class Solution:
     def longestSubarray(self, nums):
         n = len(nums)
-        left = zeros = ans = 0
+        left = zeros = ans = 0 #set left to 0 
         
         for right in range(n):
-            if nums[right] == 0:
+            if nums[right] == 0: # if we encounter a zero then increment 
                 zeros += 1
             
-            while zeros > 1:
+            while zeros > 1: 
                 if nums[left] == 0:
                     zeros -= 1
                 left += 1
@@ -1259,7 +1304,7 @@ class Solution:
 
 #### 44. [find pivot index](https://leetcode.com/problems/find-pivot-index/description/?envType=study-plan-v2&envId=leetcode-75)
 
-```
+```python
 class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
         
@@ -1280,3 +1325,233 @@ class Solution:
 ----
 ### 10th sept
 
+#### 45. coin change
+
+- approach: can we be greedy? what is greedy?
+- initiate a dp array
+- 
+
+```python
+class Solution:
+    def coinchange(self, coins, amount):
+        dp = [amount + 1] * (amount + 1)
+        dp[0] = 0
+        for a in range(1, amount+1):
+            for c in coins:
+                if a - c >= 0:
+                    dp[a] = min(dp[a], 1 + dp[a-c])
+        
+        return dp[amount] if dp[amount] != amount + 1 else -1
+```
+
+#### 46. Find median in data stream
+
+- Use heap. with a small heap and large heap
+- 
+
+```python
+class MedianFinder:
+    def __init__(self):
+        self.small, self.larrge = [], []
+
+    def addNum(self, num):
+        heapq.heappush(small, -1 * num) # this is max heap
+
+        #every num in small heap <= every num in large heap
+        if (small and large and (-1* self.small[0]) > self.large[0]):
+            val = -1 * heapq.heappop(self.small)
+            heapq.heappush(self.large, val)
+
+        #uneven size of both heaps
+        if len(small) > len(large) + 1:
+            val = -1 * heapq.heappop(self.small)
+            heapq.heappush(self.large, val)
+        
+        if len(large) > len(small) + 1:
+            val = heapq.heapop(self.large)
+            heapq.heappush(self.small, -1 * val)
+
+
+    def findMedian(self):
+        if len(small) > len(large):
+            return self.small[0]
+        if len(large) > len(small):
+            return self.large[0]
+    
+        return (self.small[0] + self.large[0]) / 2
+```
+
+-----
+### 11th Sept
+
+#### 47. Find min in rotated sorted array
+
+- use two pointers and binary search 
+
+```python
+class Solution:
+    def findMin(self, nums):
+        res = nums[0]
+        l, r = 0, len(nums)-1
+
+        while l <= r:
+            #if the array is sorted
+            if nums[l] < num[r]:
+                res = min(res, nums[l])
+                break
+            
+            #if the array is not sorted, then use binary search
+            m = (l + r)//2
+            res = min(res, nums[m])
+            
+            if nums[m] >= nums[l]:
+                l = m + 1
+            else:
+                r = m - 1
+
+        return res
+```
+
+#### 48. Meeting rooms
+
+- just need to return a boolean if there is an overlap between start and end times 
+
+```python
+class Solution:
+    def canAttendMeetings(self, intervals):
+        intervals.sort(key=lambda i: i.start)
+
+        for i in range(1, len(intervals)):
+            i1 = intervals[i-1]
+            i2 = intervals[i]
+
+            if i1.end > i2.start:
+                return False
+        
+        return True
+```
+------
+### 12th Sept
+
+#### 49. Meeting rooms II
+
+- maintain a variable count to track the number of meetings
+- iterate over the intervals to check if meeting has started or ended
+- iterate through the end meeting time and then iterate through start meeting time
+
+```python
+class Solution:
+    def minMeetingRooms(self, intervals):
+        start = sorted([i.start for i in intervals])
+        end = sorted([i.end for i in intervals])
+
+        res, count = 0,0
+        s, e = 0, 0 #start and end time
+
+        while s <len(intervals):
+            #if start time is less than end time, that means another meeting has started 
+            if start[s] < end[e]:
+                s += 1
+                count += 1
+            
+            # else meeting has ended
+            else:
+                e += 1
+                count -= 1
+            
+            res = max(res, count)
+        
+        return res
+```
+
+#### 50. Maximum product subarray
+
+- use DP
+- need to make the largest contiguous product in the array
+- if we get all positive numbers, just multiple all 
+- if its all negative, then it depends on the len(nums)
+- keep track of the minimum prod subarray too 
+
+```python
+class Solution:
+    def maxProduct(self, nums):
+        res = max(nums)
+        curMin, curMax = 1,1 #1 is neutral value
+
+        for n in nums:
+            if n == 0:
+                curMin, curMax = 1,1
+                continue
+            
+            #need to keep track of curMax
+            tmp = curMax * n
+
+            #if curMax, curMin is positive or both negative then n 
+            curMax = max(n * curMax, n * curMin, n)
+            curMin = min(tmp, n * curMin, n)
+            res = max(res, curMax, curMin)
+        
+        return res
+```
+----
+
+### 13th Sept
+
+#### 51. Minimum window substring
+
+```python
+class Solution:
+    def minWindow(self,s,t):
+        countT, window = {}, {}
+
+        for c in t:
+            #build hasmap with count
+            countT[c] = 1 + countT.get(c, 0)
+
+        have, need = 0, len(countT)
+        res, resLen = [-1,-1], float('inf')
+        l = 0
+
+        #iterate over s string
+        for r in range(len(s)):
+            c = s[r]
+            window[c] = 1 + window.get(c,0)
+
+            if c in countT and window[c] == countT[c]:
+                have += 1
+            
+            while have == need:
+                #update result 
+                if (r - l + 1) < resLen:
+                    res = [l,r]
+                    resLen = (r - l + 1)
+                
+                # pop from left of our window
+                window[s[l]] -= 1
+
+                #update the have pointer
+                if s[l] in countT and window[s[l]] < countT[s[l]]:
+                    have -= 1
+                l += 1
+
+        l, r = res
+        return s[l:r+1] if resLen != float('inf') else ""
+```
+#### 52. Merge intervals
+
+- think of a number line with intervals on it and see if there is an overlap
+- sort the intervals based on the start value
+- O(nlog(n))
+
+```python
+class Solution:
+    def merge(self, intervals):
+        intervals.sort(key = lambda i: i[0])
+        output = [intervals[0]]
+
+        for start, end in intervals[1:]:
+            output[-1][1] ##get the most recent value and it's end value
+
+
+
+```
