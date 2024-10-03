@@ -1,11 +1,21 @@
 ---
 layout: post
-title: Top ML algorithms implemented 
+title: 🏄🏻‍♂️ Top ML algorithms implemented 
 date:   2024-09-18 12:54:15 +0800
 categories: jekyll update
 ---
 
-## 1. Linear Regression
+**Algorithms Covered**
+1. Linear Regression
+2. Logistic Regression
+3. Decision Tree
+4. Random Forest
+5. SVM
+6. K-nearest Neighbor
+7. Naive Bayes
+8. K-means clustering
+9. Principle Componenet Analysis (PCA)
+10. Gradient Boosting
 
 ```python
 import numpy as np
@@ -56,7 +66,9 @@ The goal is to find the values of \( w \) and \( b \) that minimize the differen
 - **Model Fitting**: The process of determining the best values for the parameters \( w \) and \( b \) by minimizing the error between the predicted outputs and the actual outputs.
 - **Prediction**: Once the model is trained (fitted), it can be used to make predictions for new inputs.
 
-### **1.2 Code Breakdown**
+---
+
+### 1.2 **Code Breakdown**
 
 Now let’s break down the code step by step:
 
@@ -72,8 +84,6 @@ y = np.array([2, 4, 5, 4, 5])
    
    In this simplified case, the input values are simple integers (1 to 5), and the output values represent some noisy or imperfectly linear relationship with the input.
 
----
-
 ```python
 # Create and train a linear regression model
 model = LinearRegression()
@@ -85,8 +95,6 @@ model.fit(X, y)
 
 - **Fitting the Model**:
    - `model.fit(X, y)`: The `fit` method is used to train the linear regression model by finding the best-fitting line that minimizes the prediction error. Internally, the model calculates the weight \( w \) and the bias \( b \) that minimize the mean squared error between the actual values \( y \) and the predicted values \( y^ \).
-
----
 
 ```python
 # Make predictions
@@ -105,22 +113,21 @@ print(f"Predicted value for input 6: {prediction[0]:.2f}")
 
      The model computes this using the previously learned \( w \) and \( b \) values and returns the predicted output \( y^ \).
 
----
-
-### **1.3 What’s Happening in the Model Internally?**
+### 1.2.1 **What’s Happening in the Model Internally?**
 
 - **Training**: During the training step (`model.fit(X, y)`), the model performs linear algebra operations to minimize the error between the predicted values and the true values. Specifically, it uses the **ordinary least squares** method to find the parameters \( w \) and \( b \).
 
 - **Prediction**: In the prediction step (`model.predict(new_X)`), the learned parameters \( w \) and \( b \) are applied to the new input \( X = 6 \) to calculate the predicted value \( y^ \).
 
-### **1.4 Visualizing the Linear Relationship**
+### 1.2.2 **Visualizing the Linear Relationship**
 
 We can visualize the learned linear relationship between \( X \) and \( y \) as a straight line that best fits the given data points.
 
 ![alt text](https://i.postimg.cc/3ww1zc67/LR.png)
 
+---
 
-### **1.5 Conclusion**
+### 1.3 **Conclusion**
 
 In this simple example, we used **Linear Regression** to illustrate the concept of machine learning:
 - The model learns a linear relationship between input \( X \) and output \( y \) based on training data.
@@ -290,6 +297,17 @@ The **sigmoid function** maps the output of the linear equation \( .X + b \) to 
    
 ![alt](https://i.postimg.cc/pV5D89yJ/Screenshot-2024-10-03-at-9-05-24-AM.png)
 
+#### 2.3.3 **When to use Logistic regression?**
+
+- When you have a linear relationship between the features and the target variable.
+- When interpretability is important. Logistic regression provides clear insights into feature importance (via coefficients).
+- When the dataset is small to medium-sized and linearly separable.
+- When you need probabilistic outputs (i.e., the probability of class membership).
+
+***Not suitable when:***
+- There is a complex or non-linear relationship between the features and target variable.
+- The dataset has too many outliers or irrelevant features, as logistic regression is sensitive to these.
+
 ---
 
 ### **2.4 Conclusion**
@@ -419,6 +437,16 @@ Decision trees work by making a series of binary splits in the data to create a 
 1. **Choosing a Split**: At each node, the model selects a feature and a threshold that maximizes class separation (e.g., reduces Gini impurity the most). For example, a split might be "Is petal length < 2.5?".
 2. **Recursive Splitting**: The tree recursively splits the data at each node, creating a tree structure where each internal node represents a decision, and each leaf node represents a class prediction.
 3. **Stopping Criteria**: The tree stops growing when one of the stopping criteria is met (e.g., maximum depth, minimum samples per leaf, or pure nodes).
+
+#### 3.3.2 **When to use Decision Trees?**
+- When you need an interpretable model. Decision trees provide an intuitive understanding of the decision-making process.
+- When the dataset has non-linear relationships between the features and target variable.
+- When you have categorical features. Decision trees handle categorical variables well without needing to encode them.
+- When the dataset contains missing values or has both numerical and categorical features, as decision trees can handle these.
+
+***Not suitable when:***
+- The dataset is small and prone to overfitting, as decision trees can easily memorize the data.
+- You need high accuracy on larger datasets (in such cases, random forest or gradient boosting may perform better).
 
 --- 
 
@@ -606,6 +634,17 @@ At each split in a tree, Random Forest randomly selects a subset of features to 
 
 #### 4.3.3 **Feature Importance**:
 One of the advantages of Random Forests is that they provide feature importance scores. These scores measure how often a feature is used in the decision splits and how much it improves the classification accuracy.
+
+#### 4.3.4 **When to use Random Forest?**
+- When you have a large dataset with high-dimensional features and need a powerful model that can generalize well.
+- When the dataset has a mix of numerical and categorical features.
+- When you need a model that can handle non-linear relationships and is more robust to overfitting than decision trees.
+- When you need feature importance to understand which features are most important in making predictions.
+- When the model needs to handle missing data or noisy data robustly.
+
+***Not suitable when:***
+- Interpretability is crucial. Random forests are more complex and less interpretable compared to decision trees or logistic regression.
+- You need real-time predictions or have memory constraints, as random forests can be computationally expensive.
 
 ---
 
@@ -806,6 +845,17 @@ Where:
 #### 5.3.3 **Hyperparameter \( C \)**:
 The parameter \( C \) controls the trade-off between having a wide margin and allowing some misclassifications. A higher value of \( C \) will try to classify all points correctly (potentially leading to overfitting), while a smaller value will result in a larger margin but may misclassify some points.
 
+#### 5.3.4 **When to use SVM?**
+- When the dataset is high-dimensional and not too large. SVMs work well for problems with many features relative to the number of data points.
+- When the classes are separable, either linearly or using a non-linear kernel (e.g., RBF).
+- When you need a model that is robust to outliers, especially in a classification setting with clear margins.
+- When you need a classifier that can handle both linearly separable and non-linear classification using kernel tricks.
+
+***Not suitable when:***
+- The dataset is very large, as SVM can be slow in both training and prediction for large datasets.
+- You need probabilistic predictions; SVMs output hard classification labels unless you use additional techniques.
+
+
 ---
 
 ### **5.4 Conclusion**
@@ -1000,6 +1050,17 @@ print(f"Testing accuracy: {model.score(X_test, y_test):.2f}")
 - A smaller \( k \) (e.g., \( k=1 \)) makes the model sensitive to noise and outliers, leading to a more complex decision boundary.
 - A larger \( k \) (e.g., \( k=10 \)) smooths the decision boundary, making the model less sensitive to individual data points.
 
+#### 6.3.3 **When to use K-Neares Neighbor**
+- When the dataset is small and you need a simple, easy-to-understand model.
+- When the data has a relatively low-dimensional feature space and is not noisy.
+- When there is no need for explicit training, as KNN is a lazy learner (it simply memorizes the data).
+- When you have local patterns or relationships that can be detected based on proximity to neighbors.
+
+***Not suitable when:***
+- The dataset is large, as KNN can be computationally expensive at prediction time (since it requires calculating distances to all training points).
+- The dataset is high-dimensional (the curse of dimensionality can make distance metrics less effective).
+- The dataset has many irrelevant features or is noisy, which can mislead the distance-based metric.
+
 ---
 
 ### **6.4 Conclusion**
@@ -1188,6 +1249,16 @@ print(f"Testing accuracy: {model.score(X_test, y_test):.2f}")
 1. For each class \( C \), Naive Bayes computes the posterior probability \( P(C|X) \) using Bayes' theorem.
 2. The class with the highest posterior probability is chosen as the predicted class for the input \( X \).
 
+#### 7.3.3 **When to use Naive Bayes?**
+- When you have a large dataset and need a model that trains quickly.
+- When the features are conditionally independent or approximately independent, which suits the Naive Bayes assumption.
+- When you are working with text classification, spam detection, or sentiment analysis (Naive Bayes is often effective in these tasks).
+- When you need a probabilistic model that provides the probability of class membership.
+
+***Not suitable when:***
+- The features are highly correlated, as the Naive Bayes assumption of conditional independence would be violated.
+- You need a highly accurate model for complex relationships, as Naive Bayes is simple and doesn't model interaction between features.
+
 ---
 
 ### **7.4 Conclusion**
@@ -1336,6 +1407,18 @@ Inertia: 203.89
 #### 8.3.2 **Choosing the Number of Clusters**:
 - The **Elbow Method** is often used to determine the optimal number of clusters \( k \). It involves plotting the inertia against different values of \( k \) and looking for a point where the inertia decreases sharply (the "elbow").
 
+#### 8.3.3 **When to choose K-Means Clustering?**
+- When you need to find clusters in an unlabeled dataset (i.e., unsupervised learning).
+- When the data naturally clusters into distinct groups, and you need to group similar data points.
+- When you have spherical clusters (K-Means works best when clusters are round and evenly sized).
+- When you need a quick clustering algorithm that is easy to implement and scale.
+
+***Not suitable when:***
+- The dataset has overlapping or non-spherical clusters (K-Means assumes that clusters a are spherical).
+- The number of clusters 𝑘
+- k is not known in advance (although you can use methods like the Elbow Method to estimate the best k).
+- The dataset contains categorical features, as K-Means operates on numerical data and uses distance metrics like Euclidean distance.
+
 ---
 
 ### **8.4 Conclusion**
@@ -1476,6 +1559,19 @@ print(f"Total explained variance: {sum(pca.explained_variance_ratio_):.2f}")
 
 #### 9.3.2 **Explained Variance**:
 The amount of variance explained by each principal component tells us how much of the original data's variability is captured by the component. For example, if the first principal component explains 70% of the variance, it means that projecting the data onto this component retains 70% of the information.
+
+#### 9.3.3 **When to use PCA?**
+- Before classification to reduce the dimensionality of the dataset, especially when there are many features that are highly correlated.
+- When you need to reduce overfitting by selecting fewer, more informative components.
+- When you want to visualize high-dimensional data in a lower-dimensional space (2D or 3D).
+- When you want to speed up the training of other classifiers by reducing the number of features.
+
+***Not suitable when:***
+- The data is inherently non-linear; PCA is a linear method and might not capture non-linear relationships.
+- The interpretability of features is important, as PCA creates new composite features that are linear combinations of the original features.
+
+***Common Use Case:***
+- PCA is often used as a preprocessing step before applying other classification algorithms like SVM, logistic regression, or random forest to reduce dimensionality and improve model performance.
 
 ---
 
@@ -1644,6 +1740,16 @@ plt.show()
 #### 10.3.3 **Challenges**:
 - **Training Time**: Gradient Boosting can be slow to train because it builds trees sequentially.
 - **Overfitting**: Without careful tuning (especially of the number of trees and learning rate), Gradient Boosting models can overfit the training data.
+
+#### 10.3.4 **When to use Gradient boosting?**
+- When you need a highly accurate model, especially for tabular data or structured datasets.
+- When the dataset contains complex, non-linear relationships that simpler models can't capture.
+- When you want a robust model that can handle outliers, noisy data, and missing data.
+- When you need feature importance to understand the impact of different features.
+
+***Not suitable when:***
+- Training time is a concern, as Gradient Boosting can be slow, especially with a large number of trees.
+- You need an interpretable model, as Gradient Boosting is more complex than simpler models like decision trees or logistic regression.
 
 ---- 
 
