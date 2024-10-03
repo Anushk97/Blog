@@ -16,7 +16,10 @@ categories: jekyll update
 8. K-means clustering
 9. Principle Componenet Analysis (PCA)
 10. Gradient Boosting
+11. Multi Layer Perceptron
 
+
+## 1. Linear Regression
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -126,8 +129,41 @@ We can visualize the learned linear relationship between \( X \) and \( y \) as 
 ![alt text](https://i.postimg.cc/3ww1zc67/LR.png)
 
 ---
+### 1.3 **Gradient descent and loss function**
+Gradient Descent is a fundamental optimization algorithm used to minimize a function by iteratively moving towards the steepest descent, or the minimum of the function. It is particularly important in machine learning for minimizing the cost function, which measures how well a model fits the data.
 
-### 1.3 **Conclusion**
+***Key Concepts in Gradient Descent:***
+
+Objective Function (Cost Function): The goal of gradient descent is to minimize the cost function. In linear regression, this is typically the mean squared error between the predicted values and actual values.
+
+- Gradient: The gradient of the cost function with respect to the model's parameters tells us the direction of the steepest ascent. Gradient descent updates the parameters by moving in the opposite direction of the gradient (steepest descent).
+
+- Learning Rate: The learning rate determines the size of the steps we take toward the minimum. A large learning rate can overshoot the minimum, while a small learning rate can make the process slow.
+
+- Convergence: Gradient descent continues iterating until it converges to a minimum (or stops at a certain number of iterations). This minimum is ideally the global minimum of the cost function, but gradient descent can sometimes get stuck in local minima depending on the problem.
+
+***Relevance in Linear Regression:***
+
+In linear regression, the objective is to find the best-fit line that minimizes the error between predicted and actual values. The equation of the line is:
+
+![alt text](https://i.postimg.cc/0yLDxYbQ/Screenshot-2024-10-03-at-2-21-34-PM.png)
+
+Here, 𝜃0 and 𝜃1 are the parameters (intercept and slope), and 𝑥 represents the input data. 
+
+The cost function for linear regression is usually the **mean squared error**:
+![alt](https://i.postimg.cc/yNhd55tV/Screenshot-2024-10-03-at-2-21-47-PM.png)
+
+where m is the number of data points, 𝑦𝑖 is the actual value, and 𝑦^𝑖 is the predicted value.
+
+Gradient descent updates the parameters 𝜃0 and 𝜃1 by computing their gradients (derivatives of the cost function) and adjusting the parameters iteratively:
+
+![alt](https://i.postimg.cc/gchcrrGx/Screenshot-2024-10-03-at-2-21-55-PM.png)
+
+By iteratively updating the parameters in this way, gradient descent reduces the error and finds the optimal parameters for the linear regression model.
+
+---
+
+### 1.4 **Conclusion**
 
 In this simple example, we used **Linear Regression** to illustrate the concept of machine learning:
 - The model learns a linear relationship between input \( X \) and output \( y \) based on training data.
@@ -1763,4 +1799,195 @@ This example demonstrates how **Gradient Boosting** can be applied to a classifi
 [![Watch the video](https://img.youtube.com/vi/zblsrxc7XpM/0.jpg)](https://www.youtube.com/watch?v=zblsrxc7XpM)
 
 ----
+
+## Multi Layer Perceptron
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.neural_network import MLPClassifier
+from sklearn.datasets import make_moons
+from sklearn.model_selection import train_test_split
+
+# Generate sample data
+X, y = make_moons(n_samples=1000, noise=0.1, random_state=42)
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the model
+model = MLPClassifier(hidden_layer_sizes=(10, 5), max_iter=1000, random_state=42)
+model.fit(X_train, y_train)
+
+# Create a mesh grid for plotting decision boundary
+x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
+y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
+                     np.arange(y_min, y_max, 0.02))
+
+# Make predictions on the mesh grid
+Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+# Plot the results
+plt.contourf(xx, yy, Z, alpha=0.8, cmap=plt.cm.RdYlBu)
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.RdYlBu, edgecolor='black')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.title('Neural Network Decision Boundary')
+plt.show()
+
+print(f"Training accuracy: {model.score(X_train, y_train):.2f}")
+print(f"Testing accuracy: {model.score(X_test, y_test):.2f}")
+```
+
+This code demonstrates how to use a **Multi-Layer Perceptron (MLP)**, which is a type of **neural network**, to classify data generated using `make_moons`. It also visualizes the decision boundary and evaluates the accuracy of the model on both training and test sets.
+
+
+### 11.1 **What is a Multi-Layer Perceptron (MLP)?**
+
+An **MLP** is a class of **feedforward artificial neural network** that consists of at least three layers:
+1. **Input layer**: The features from the dataset are fed into the model.
+2. **Hidden layers**: These layers process the input using weights and activation functions. They help the model learn complex patterns in the data.
+3. **Output layer**: This layer generates the final output (class labels in classification tasks).
+
+In an MLP, every neuron in a layer is connected to every neuron in the next layer. This is a **fully connected neural network**.
+
+#### **Key Concepts:**
+- **Activation Functions**: Activation functions such as the **ReLU** or **sigmoid** function introduce non-linearity into the network, enabling the model to learn complex relationships.
+- **Backpropagation**: The model is trained using **backpropagation**, where errors are propagated backward through the network, and the weights are updated using gradient descent to minimize the error.
+
+---
+
+### 11.2 **Code Breakdown**
+
+#### 11.2.1 **Generating the Data**
+
+```python
+from sklearn.datasets import make_moons
+from sklearn.model_selection import train_test_split
+
+# Generate sample data
+X, y = make_moons(n_samples=1000, noise=0.1, random_state=42)
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
+
+- **`make_moons()`**:
+   - Generates a dataset with two interleaving moon-shaped clusters. It’s commonly used for demonstrating non-linear classification problems.
+   - **`n_samples=1000`**: Generates 1000 data points.
+   - **`noise=0.1`**: Adds some noise to the data to make it more challenging for the model to learn.
+   
+- **`train_test_split()`**:
+   - Splits the data into training (80%) and testing (20%) sets to evaluate the model’s performance on unseen data.
+
+#### 11.2.2 **Creating and Training the MLPClassifier**
+
+```python
+from sklearn.neural_network import MLPClassifier
+
+# Create and train the model
+model = MLPClassifier(hidden_layer_sizes=(10, 5), max_iter=1000, random_state=42)
+model.fit(X_train, y_train)
+```
+
+- **`MLPClassifier()`**:
+   - Initializes the Multi-Layer Perceptron classifier. Key parameters:
+     - **`hidden_layer_sizes=(10, 5)`**: Specifies two hidden layers, the first with 10 neurons and the second with 5 neurons. These hidden layers allow the model to learn non-linear relationships in the data.
+     - **`max_iter=1000`**: Limits the number of iterations (or training epochs) to 1000 to ensure the model has enough time to converge.
+     - **`random_state=42`**: Ensures that the model produces consistent results across runs by setting the seed for the random number generator.
+
+- **`model.fit(X_train, y_train)`**:
+   - Trains the neural network using backpropagation. The model adjusts the weights of the neurons iteratively to minimize the error between the predicted and actual class labels.
+
+#### 11.2.3 **Creating the Decision Boundary**
+
+```python
+# Create a mesh grid for plotting decision boundary
+x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
+y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
+                     np.arange(y_min, y_max, 0.02))
+```
+
+- **Mesh Grid**:
+   - A mesh grid is created to cover the entire feature space (the area spanned by feature 1 and feature 2). The grid points will be used to visualize the decision boundary by predicting the class for each point in the grid.
+
+#### 11.2.4 **Making Predictions on the Mesh Grid**
+
+```python
+# Make predictions on the mesh grid
+Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+```
+
+- **`model.predict()`**:
+   - The model predicts the class labels for each point in the mesh grid. This allows us to plot the decision boundary of the neural network.
+
+- **`np.c_[xx.ravel(), yy.ravel()]`**:
+   - This concatenates the flattened mesh grid arrays into a 2D array where each row represents a point in the feature space.
+
+- **`Z.reshape(xx.shape)`**:
+   - Reshapes the predicted class labels to match the shape of the mesh grid for plotting.
+
+#### 11.2.5 **Plotting the Decision Boundary**
+
+```python
+import matplotlib.pyplot as plt
+
+# Plot the results
+plt.contourf(xx, yy, Z, alpha=0.8, cmap=plt.cm.RdYlBu)
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.RdYlBu, edgecolor='black')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.title('Neural Network Decision Boundary')
+plt.show()
+```
+
+- **`plt.contourf()`**:
+   - Plots the decision boundary by filling the regions in the feature space according to the predicted class labels. Different regions are colored based on the class predicted by the MLP model.
+
+- **`plt.scatter()`**:
+   - Plots the actual data points, with different colors representing the true class labels (0 or 1). The edge color is used to distinguish the points from the decision boundary.
+
+![alt](https://i.postimg.cc/HsmTPZ3s/MLP.png)
+
+#### 11.2.6 **Evaluating the Model**
+
+```python
+print(f"Training accuracy: {model.score(X_train, y_train):.2f}")
+print(f"Testing accuracy: {model.score(X_test, y_test):.2f}")
+```
+
+- **`model.score()`**:
+   - This function returns the accuracy of the model, which is the proportion of correctly classified samples. The accuracy is printed for both the training and test sets, allowing us to assess how well the model has generalized to unseen data.
+
+---
+
+### 11.3 **The Theory Behind Neural Networks and MLP**
+
+#### 11.3.1 **How Neural Networks Work**:
+- **Feedforward Network**: In an MLP, information flows from the input layer through the hidden layers to the output layer. Each layer performs a weighted sum of its inputs followed by an activation function (e.g., ReLU).
+- **Backpropagation**: During training, the model calculates the error between the predicted and actual class labels. This error is propagated backward through the network, and the weights are adjusted using gradient descent to minimize the error.
+- **Activation Functions**: The neurons in hidden layers use activation functions (e.g., **ReLU** or **sigmoid**) to introduce non-linearity, enabling the model to learn complex patterns.
+
+#### 11.3.2 **Advantages of Neural Networks**:
+- **Non-linear decision boundaries**: MLP can learn non-linear relationships between features, making it suitable for complex datasets like `make_moons`.
+- **Flexible architecture**: You can control the number of layers and neurons to suit the complexity of the problem.
+
+#### 11.3.3 **Disadvantages**:
+- **Computational cost**: Neural networks can be computationally expensive to train, especially on large datasets or with deep architectures.
+- **Hyperparameter tuning**: Choosing the right architecture (e.g., number of layers, neurons, learning rate) can be challenging and often requires experimentation.
+
+---
+
+### 11.4 **Conclusion**
+
+This example demonstrates how a **Multi-Layer Perceptron (MLP)** can be used for non-linear classification tasks:
+- **Training**: The neural network is trained using backpropagation, adjusting its weights to minimize classification errors.
+- **Visualization**: The decision boundary is visualized, showing how the model separates the two classes.
+- **Evaluation**: The model’s accuracy on both the training and test sets is calculated to assess its generalization performance.
+
+[![Watch the video](https://img.youtube.com/vi/IUylp47hNA0/0.jpg)](https://www.youtube.com/watch?v=IUylp47hNA0)
 
