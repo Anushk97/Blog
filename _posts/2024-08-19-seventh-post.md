@@ -9,7 +9,7 @@ categories: jekyll update
 
 *“Don’t practice until you get it right. Practice until you can’t get it wrong.”*
 
-#### 1. Group Anagrams
+#### 1. [Group Anagrams](https://leetcode.com/problems/group-anagrams/description/?envType=problem-list-v2&envId=an5ompkg)
 
 - Given an array of strings strs, group all anagrams together into sublists. You may return the output in any order.
 
@@ -39,7 +39,7 @@ class Solution:
 
 <span style="color: red;">note: the trick here is to use a dictionary and sort the strings and make them keys. then just add anagrams to the existing keys </span>
 
-#### 2. Top K Elements in List
+#### 2. [Top K Elements in List](https://leetcode.com/problems/top-k-frequent-elements/?envType=problem-list-v2&envId=an5ompkg)
 
 - Given an integer array nums and an integer k, return the k most frequent elements within the array.
 - The test cases are generated such that the answer is always unique.
@@ -74,7 +74,7 @@ class Solution:
 ### 20th Aug
 *"It does not matter how slowly you go as long as you do not stop"*
 
-#### 3. Product of array discluding self
+#### 3. [Product of array discluding self](https://leetcode.com/problems/product-of-array-except-self/description/?envType=problem-list-v2&envId=an5ompkg)
 - Given an integer array nums, return an array output where output[i] is the product of all the elements of nums except nums[i].
 - Each product is guaranteed to fit in a 32-bit integer.
 - Follow-up: Could you solve it in 
@@ -1325,7 +1325,7 @@ class Solution:
 ----
 ### 10th sept
 
-#### 45. coin change
+#### 45. [coin change](https://leetcode.com/problems/coin-change/description/)
 
 - approach: can we be greedy? what is greedy?
 - initiate a dp array
@@ -1344,7 +1344,7 @@ class Solution:
         return dp[amount] if dp[amount] != amount + 1 else -1
 ```
 
-#### 46. Find median in data stream
+#### 46. [Find median in data stream](https://leetcode.com/problems/find-median-from-data-stream/description/)
 
 - Use heap. with a small heap and large heap
 - 
@@ -1384,7 +1384,7 @@ class MedianFinder:
 -----
 ### 11th Sept
 
-#### 47. Find min in rotated sorted array
+#### 47. [Find min in rotated sorted array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/)
 
 - use two pointers and binary search 
 
@@ -1433,7 +1433,7 @@ class Solution:
 ------
 ### 12th Sept
 
-#### 49. Meeting rooms II
+#### 49. [Meeting rooms II](https://www.lintcode.com/problem/920/)
 
 - maintain a variable count to track the number of meetings
 - iterate over the intervals to check if meeting has started or ended
@@ -1464,7 +1464,7 @@ class Solution:
         return res
 ```
 
-#### 50. Maximum product subarray
+#### 50. [Maximum product subarray](https://leetcode.com/problems/maximum-product-subarray/description/)
 
 - use DP
 - need to make the largest contiguous product in the array
@@ -1497,7 +1497,7 @@ class Solution:
 
 ### 13th Sept
 
-#### 51. Minimum window substring
+#### 51. [Minimum window substring](https://leetcode.com/problems/minimum-window-substring/)
 
 ```python
 class Solution:
@@ -1537,7 +1537,7 @@ class Solution:
         l, r = res
         return s[l:r+1] if resLen != float('inf') else ""
 ```
-#### 52. Merge intervals
+#### 52. [Merge intervals](https://leetcode.com/problems/merge-intervals/)
 
 - think of a number line with intervals on it and see if there is an overlap
 - sort the intervals based on the start value
@@ -1550,8 +1550,75 @@ class Solution:
         output = [intervals[0]]
 
         for start, end in intervals[1:]:
-            output[-1][1] ##get the most recent value and it's end value
+            lastEnd = output[-1][1] ##get the most recent value and it's end value
+            if start <= lastEnd:
+                output[-1][1] = max(lastEnd, end)
+            else:
+                output.append([start, end])
+        
+        return output
+```
+-----
 
+### 14th Sept
 
+#### 53. [Word search](https://leetcode.com/problems/word-search/description/)
 
+- use backtracking and brute force
+- for each position look at every neighbor
+- time comp will be O(n * m * 4^n)
+
+```python
+class Solution:
+    def exist(self, board, word):
+        ROWS, COLS = len(board), len(board[0])
+        path = set()
+
+        def dfs(r, c, i): # row, col, current char
+            if i == len(word):
+                return True
+            
+            # out of bouds or row, cols > number of rows, cols or word at position i != character on the board or row, col position is inside the path set that is visiting the path 
+            if (r < 0 or c < 0 or r >= ROWS or c >= COLS or word[i] != board[r][c] or (r,c) in path):
+                return False
+            
+            path.add((r,c)) # add the current row, col position to path
+
+            #recursively explore all 4 directions
+            res = (dfs(r+1, c, i+1) or dfs(r-1, c, i+1) or dfs(r, c+1, i+1) or dfs(r, c-1, i+1))
+
+            path.remove((r,c)) #remove position from path 
+
+            return res
+
+        #use dfs on every position on board
+        for r in range(ROWS):
+            for c in range(COLS):
+                if dfs(r,c,0):
+                    return True
+        
+        return False
+```
+
+#### 54. [word break](https://leetcode.com/problems/word-break/description/)
+
+- check each word in word dict to check if it matches in the word?
+- time comp: O(n * m * n)
+- bottom up DP solution
+
+```python
+class Solution:
+    def wordBreak(self, s, wordDict):
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True #base case is the last position
+
+        for i in range(len(s)-1,-1,-1): # go from last to first
+            for w in wordDict:
+                if (i + len(w)) <= len(s) and s[i: i + len(w)] == w: # check if there are enough chars in s to compare and check if first i chars in s is equal to chars in w
+                    dp[i] = dp[i + len(w)]
+                
+                if dp[i]:
+                    break
+        
+        return dp[0]
 ```

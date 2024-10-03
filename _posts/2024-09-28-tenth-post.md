@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Pytorch project - Training a handwritten digit recognition algorithm
+title: 💻 Training a handwritten digit recognition algorithm
 date:   2024-09-18 12:54:15 +0800
 categories: jekyll update
 ---
